@@ -1,4 +1,4 @@
-
+import fetch from 'isomorphic-fetch'; //Fix IE, Opera Mini issues.
 
 import {
   SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE,
@@ -28,6 +28,10 @@ export function signup(username, password) {
       if (json.success) { 
         return json;
       }
+      dispatch({
+        type: SIGNUP_FAILURE,
+        payload: json
+      })
       throw new Error(json.message); 
     })
     .then (json => {
@@ -88,37 +92,31 @@ export function login(username, password) {
   }
 }
 
-export function logout() {
+export function logout(token) {
   return (dispatch) => {
     dispatch ({
       type: LOGOUT_REQUEST,
     });
 
-    return fetch('http://localhost:8000/v1/login', {
-      method: 'POST',
-      // bearer.token
+    return fetch('http://localhost:8000/v1/logout', {
+      method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       }
     })
     .then(response => response.json())
     .then(json => {
       if (json.success) { 
-        return json;
+        //... unsubscribe store here or not here ?
+        localStorage.removeItem('token');
+        dispatch({
+          type: LOGOUT_SUCCESS,
+          payload: json
+        })
       }
       throw new Error(json.message); 
-    })
-    .then (json => {
-      if (!json.token) {
-        throw new Error('No token provided!');
-      }
-      localStorage.removeItem('token');
-      //unsubscribe store
-      dispatch({
-        type: LOGOUT_SUCCESS,
-        payload: json
-      })
     })
     .catch(reason => dispatch({
       type: LOGOUT_FAILURE,

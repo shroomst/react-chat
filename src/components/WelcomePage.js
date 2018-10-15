@@ -64,14 +64,14 @@ class WelcomePage extends React.Component {
               onChange={this.handleChange}
               fullWidth
             >
-              <Tab icon={<LockIcon />} label="Sign In" onSubmit={login}/>
-              <Tab icon={<Register />} label="Register" onSubmit={signup}/>
+              <Tab icon={<LockIcon />} label="Sign In"/>
+              <Tab icon={<Register />} label="Register"/>
             </Tabs>
           </AppBar>
           <main className={classes.layout}>
             <Paper className={classes.paper}>
-              {activeTab === 0 && <SignInForm/>}
-              {activeTab === 1 && <RegisterForm/>}
+              {activeTab === 0 && <SignInForm onSubmit={login}/>}
+              {activeTab === 1 && <RegisterForm onSubmit={signup}/>}
             </Paper>
           </main>
         </div>

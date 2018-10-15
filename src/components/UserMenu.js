@@ -31,11 +31,17 @@ class UserMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  handleLogout = (event)=> {
+    event.preventDefault();
+    this.props.onLogout();
+    this.handleClose();
+  }
+
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     const { classes } = this.props;
-    
+
     return (
       <div className={classes.profileMenu}>
         <IconButton
@@ -63,7 +69,7 @@ class UserMenu extends React.Component {
           onClose={this.handleClose}
         >
           <MenuItem onClick={this.handleClose}>Edit Profile</MenuItem>
-          <MenuItem onClick={this.handleClose}>Log Out</MenuItem>
+          <MenuItem onClick={this.handleLogout}>Log Out</MenuItem>
         </Menu>
       </div>
     );

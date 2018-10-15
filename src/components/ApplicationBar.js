@@ -17,7 +17,7 @@ const styles = {
   }
 };
 
-const ApplicationBar = ({ classes })=>  (
+const ApplicationBar = ({ classes , logout })=>  (
   <AppBar className={classes.appBar}>
     <Toolbar>
       <div className={classes.title}>
@@ -25,7 +25,7 @@ const ApplicationBar = ({ classes })=>  (
           Chat on React
         </Typography>
       </div>
-      <UserMenu/>
+      <UserMenu onLogout={logout}/>
     </Toolbar>
   </AppBar>
 );

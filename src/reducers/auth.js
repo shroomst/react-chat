@@ -12,13 +12,12 @@ const initialState = {
   token
 };
 
-export default function auth(state = initialState, action) { // clear function для того же входного значения тот же результат и не изменяет ничего снаружи себя
-  console.log(action); // убрать
+export default function auth(state = initialState, action) { // clear function для одного и того же входного значения тот же результат и не изменяет ничего снаружи себя
   switch (action.type) {
     case SIGNUP_SUCCESS: //обработка actions
     case LOGIN_SUCCESS:
       return {
-        ...state, // берет предыдущее состояние и переписывает только то что ниже
+        ...state, // берет предыдущее состояние и переписывает только то что ниже в копии
         isAuthenticated: true,
         user: action.payload.user,
         token: action.payload.token

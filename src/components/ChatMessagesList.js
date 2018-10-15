@@ -43,8 +43,7 @@ class ChatMessagesList extends React.Component {
               key={index}
               when='a few seconds ago' 
             />
-          )    
-          }
+          )}
         )}
       </div>
     );

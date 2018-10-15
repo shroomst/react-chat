@@ -26,11 +26,11 @@ class SignInForm extends React.Component {
   state = {
     username: {
       value: '',
-      isValid: true
+      isValid: true,
     },
     password: {
       value: '',
-      isValid: true
+      isValid: true,
     }
   }
 
@@ -101,7 +101,7 @@ class SignInForm extends React.Component {
         </form>
       </React.Fragment>    
     );
-    }
+  }
 }
 
 export default withStyles(styles)(SignInForm);

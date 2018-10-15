@@ -36,9 +36,9 @@ class RegisterForm extends React.Component {
       value: '',
       isValid: true,
     },
-    errorMessage: {
-      value: ''
-    }
+    errorPasswordMessage: {
+      value: '',
+    },
   }
 
   handleInputChange = (event) => {
@@ -55,7 +55,7 @@ class RegisterForm extends React.Component {
   validate = () => {
     const { password, confirmPassword } = this.state;
     const isValid = password.value === confirmPassword.value;
-    const errorMessage = (isValid) ? '' : 'Passwords do not match';
+    const errorPasswordMessage = (isValid) ? '' : 'Passwords do not match';
 
     this.setState ((prevState) => ({
       password: {
@@ -68,9 +68,9 @@ class RegisterForm extends React.Component {
         isValid,
         value: ''
       },
-      errorMessage: {
+      errorPasswordMessage: {
         ...prevState,
-        value: errorMessage
+        value: errorPasswordMessage
       }
     }));
     
@@ -87,8 +87,8 @@ class RegisterForm extends React.Component {
   }
 
   render () {
-    const { classes } = this.props;
-    const {username, password, confirmPassword, errorMessage } = this.state;
+    const { classes, errorMessage='' } = this.props;
+    const { username, password, confirmPassword, errorPasswordMessage } = this.state;
 
     return (
       <React.Fragment>
@@ -108,7 +108,8 @@ class RegisterForm extends React.Component {
             autoComplete="username"
             value={username.value}
             onChange={this.handleInputChange}
-            error={!username.isValid}
+            error={!!errorMessage}
+            helperText={errorMessage.message}
           />
           <TextField 
             required
@@ -116,13 +117,13 @@ class RegisterForm extends React.Component {
             label="Password"
             name="password"
             placeholder="Select your password (required)"
-            type="text"
+            type="password"
             margin="normal"
             autoComplete="new-password"
             value={password.value}
             onChange={this.handleInputChange}
             error={!password.isValid}
-            helperText={errorMessage.value}
+            helperText={errorPasswordMessage.value}
           />
           <TextField 
             required
@@ -130,13 +131,13 @@ class RegisterForm extends React.Component {
             label="Confirm Password"
             name="confirmPassword"
             placeholder="Confirm your password (required)"
-            type="text"
+            type="password"
             margin="normal"
             autoComplete="new-password"
             value={confirmPassword.value}
             onChange={this.handleInputChange}
             error={!confirmPassword.isValid}
-            helperText={errorMessage.value}
+            helperText={errorPasswordMessage.value}
           />
           <Button
             type="submit"

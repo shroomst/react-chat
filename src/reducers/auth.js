@@ -9,7 +9,8 @@ const token = localStorage.getItem('token');
 const initialState = {
   isAuthenticated: !!token,
   user: null,
-  token
+  token,
+  errorMessage: ''
 };
 
 export default function auth(state = initialState, action) { // clear function для одного и того же входного значения тот же результат и не изменяет ничего снаружи себя
@@ -17,10 +18,11 @@ export default function auth(state = initialState, action) { // clear function �
     case SIGNUP_SUCCESS: //обработка actions
     case LOGIN_SUCCESS:
       return {
-        ...state, // берет предыдущее состояние и переписывает только то что ниже в копии
+        ...state, // берет предыдущее состояние и переписывает в его еопии только то, что ниже
         isAuthenticated: true,
         user: action.payload.user,
-        token: action.payload.token
+        token: action.payload.token,
+        errorMessage: ''
       }
     case SIGNUP_FAILURE:
     case LOGIN_FAILURE:
@@ -29,7 +31,8 @@ export default function auth(state = initialState, action) { // clear function �
         ...state,
         isAuthenticated: false,
         user: null,
-        token: '' 
+        token: '',
+        errorMessage: action.payload,
       }
     default:
       return state;

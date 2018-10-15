@@ -44,7 +44,7 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { classes, signup, login, isAuthenticated } = this.props;
+    const { classes, signup, login, isAuthenticated, errorMessage } = this.props;
     const { activeTab } = this.state;
 
     if (isAuthenticated) {
@@ -64,14 +64,14 @@ class WelcomePage extends React.Component {
               onChange={this.handleChange}
               fullWidth
             >
-              <Tab icon={<LockIcon />} label="Sign In"/>
-              <Tab icon={<Register />} label="Register"/>
+              <Tab icon={<LockIcon/>} label="Sign In"/>
+              <Tab icon={<Register/>} label="Register"/>
             </Tabs>
           </AppBar>
           <main className={classes.layout}>
             <Paper className={classes.paper}>
-              {activeTab === 0 && <SignInForm onSubmit={login}/>}
-              {activeTab === 1 && <RegisterForm onSubmit={signup}/>}
+              {activeTab === 0 && <SignInForm onSubmit={login} errorMessage={errorMessage}/>}
+              {activeTab === 1 && <RegisterForm onSubmit={signup} errorMessage={errorMessage}/>}
             </Paper>
           </main>
         </div>

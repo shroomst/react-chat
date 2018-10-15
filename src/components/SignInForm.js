@@ -52,7 +52,7 @@ class SignInForm extends React.Component {
   }
 
   render () {
-    const { classes } = this.props;
+    const { classes, errorMessage } = this.props;
     const { username, password } = this.state;
 
     return (
@@ -81,7 +81,7 @@ class SignInForm extends React.Component {
             label="Password"
             name="password"
             placeholder="Enter your password (required)"
-            type="text"
+            type="password"
             margin="normal"
             autoComplete="password"
             value={password.value}

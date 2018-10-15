@@ -28,11 +28,7 @@ export function signup(username, password) {
       if (json.success) { 
         return json;
       }
-      dispatch({
-        type: SIGNUP_FAILURE,
-        payload: json
-      })
-      throw new Error(json.message); 
+      throw new Error(json.message);
     })
     .then (json => {
       if (!json.token) {

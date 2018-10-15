@@ -73,7 +73,8 @@ class SignInForm extends React.Component {
             autoComplete="username"
             value={username.value}
             onChange={this.handleInputChange}
-            error={!username.isValid}
+            error={!!errorMessage}
+            helperText={errorMessage.message}
           />
           <TextField 
             required

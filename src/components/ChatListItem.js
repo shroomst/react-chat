@@ -7,7 +7,7 @@ import Avatar from './Avatar'
 const ChatListItem = ({index, title}) => (
   <ListItem key={index} button>
     <Avatar colorFrom={title} >{title}</Avatar>
-    <ListItemText primary={title} secondary="1 year ago" />
+    <ListItemText primary={title} secondary="1 year ago"/>
   </ListItem>
 );
 

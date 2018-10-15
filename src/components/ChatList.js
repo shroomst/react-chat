@@ -5,8 +5,8 @@ import ChatListItem from './ChatListItem';
 
 const styles = theme => ({
   chatList: {
-    height : 'calc (100% - 56px)',
-    overflowY: 'scroll'
+    height: 'calc(100vh - 56px - 64px)',
+    overflowY: 'auto', 
   }
 });
 

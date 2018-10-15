@@ -1,17 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router-dom';
+
+import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import LockIcon from '@material-ui/icons/LockOutlined';
+import Register from '@material-ui/icons/Create';
 import withStyles from '@material-ui/core/styles/withStyles';
+
+import RegisterForm from './RegisterForm'
+import SignInForm from './SignInForm'
+import WelcomeHeaderBar from './WelcomeHeaderBar'
 
 const styles = theme => ({
   layout: {
@@ -26,73 +27,58 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE11 issue.
-    marginTop: theme.spacing.unit,
-  },
-  submit: {
-    marginTop: theme.spacing.unit * 3,
-  },
 });
 
-function WelcomePage(props) {
-  const { classes } = props;
+class WelcomePage extends React.Component {
+  state = {
+    activeTab: 0,
+  };
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockIcon />
-          </Avatar>
-          <Typography variant="h5">Sign in</Typography>
-          <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
+  handleChange = (event, value) => {
+    this.setState({ activeTab: value });
+  };
+
+  render() {
+    const { classes, signup, login, isAuthenticated, errorMessage } = this.props;
+    const { activeTab } = this.state;
+
+    if (isAuthenticated) {
+      return (
+        <Redirect to="/chat"/>
+      );
+    }
+
+    return (
+      <React.Fragment>
+        <WelcomeHeaderBar/>
+        <div>
+          <CssBaseline/>
+          <AppBar position="static">
+            <Tabs 
+              value={activeTab}
+              onChange={this.handleChange}
               fullWidth
-              variant="raised"
-              color="primary"
-              className={classes.submit}
             >
-              Sign in
-            </Button>
-          </form>
-        </Paper>
-      </main>
-    </React.Fragment>
-  );
+              <Tab icon={<LockIcon/>} label="Sign In"/>
+              <Tab icon={<Register/>} label="Register"/>
+            </Tabs>
+          </AppBar>
+          <main className={classes.layout}>
+            <Paper className={classes.paper}>
+              {activeTab === 0 && <SignInForm onSubmit={login} errorMessage={errorMessage}/>}
+              {activeTab === 1 && <RegisterForm onSubmit={signup} errorMessage={errorMessage}/>}
+            </Paper>
+          </main>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
-WelcomePage.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
-export default withStyles(styles)(WelcomePage);
+export default withStyles (styles)(WelcomePage);

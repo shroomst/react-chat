@@ -1,13 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-import Typography from '@material-ui/core/Typography';
 import ChatMessage from './ChatMessage'
-import ChatEvent from './ChatEvent'
 
 const styles = theme => ({
   messagesWrapper: {
-    overflowX: 'scroll',
+    overflowY: 'scroll',
     height: '100%',
     width: '100%',
     paddingTop: theme.spacing.unit * 3,
@@ -35,10 +33,9 @@ class ChatMessagesList extends React.Component {
 
   render () {
     const {messages, classes} = this.props;
-    
+
     return (
       <div className={classes.messagesWrapper} ref="messagesWrapper">
-          
         {messages && messages.map((message, index) => {
           return (
             <ChatMessage 
@@ -46,19 +43,8 @@ class ChatMessagesList extends React.Component {
               key={index}
               when='a few seconds ago' 
             />
-          )    
-          }
+          )}
         )}
-      
-      <Typography>
-        <ChatEvent 
-          event="joined" 
-          author="Vasya" 
-          colorA="primary" 
-          when="a few seconds ago"
-        />
-      </Typography>
-
       </div>
     );
   }

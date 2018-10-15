@@ -12,15 +12,12 @@ const styles = theme => ({
   },
 });
 
-function AddChat(props) {
-  const { classes } = props;
-  return (
-    <div>
-      <Button variant="fab" color="primary" aria-label="Add" className={classes.addChatButton}>
-        <AddIcon />
-      </Button>
-    </div>
-  );
-}
+const AddChat= ({ classes }) => (
+  <div>
+    <Button variant="fab" color="primary" aria-label="Add" className={classes.addChatButton}>
+      <AddIcon />
+    </Button>
+  </div>
+);
 
 export default withStyles(styles)(AddChat);

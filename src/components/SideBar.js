@@ -24,17 +24,11 @@ const SideBar = ({ classes, chats }) => (
           paper: classes.drawerPaper,
         }}
   >
-
-    <SearchChat />
-
-    <Divider />
-    
+    <SearchChat/>
+    <Divider/>
     <ChatList chats = {chats}/>
-
-    <BottomNav />
-
-    <AddChat />  
-
+    <BottomNav/>
+    <AddChat/>  
   </Drawer>
 );
 

@@ -13,20 +13,13 @@ const styles = {
   }
 };
 
-class BottomNav extends React.Component {
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.bottomNav}>
-        <BottomNavigation showLabels>
-          <BottomNavigationAction label="MyChats" icon={<RestoreIcon />} />
-          <BottomNavigationAction label="Explore" icon={<ExploreIcon />} />
-        </BottomNavigation>
-      </div>
-    );
-  }
-}
+const BottomNav = ({ classes }) => (
+  <div className={classes.bottomNav}>
+    <BottomNavigation showLabels>
+      <BottomNavigationAction label="MyChats" icon={<RestoreIcon />}/>
+      <BottomNavigationAction label="Explore" icon={<ExploreIcon />}/>
+    </BottomNavigation>
+  </div>
+);
 
 export default withStyles(styles)(BottomNav);

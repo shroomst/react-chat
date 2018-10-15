@@ -39,10 +39,3 @@ class InputMessage extends React.Component {
 }
 
 export default withStyles(styles)(InputMessage);
-
-
-
-
-
-               
-                

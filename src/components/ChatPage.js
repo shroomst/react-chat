@@ -8,7 +8,6 @@ import Chat from './Chat'
 import {chats, messages} from '../mock-data'
 
 const styles = theme => ({
-
   root: {
     position: 'relative',
     display: 'flex',
@@ -19,12 +18,12 @@ const styles = theme => ({
 });
 
 
- const ChatPage = ({ classes })=>  (
-     <div className={classes.root}>
-       <ApplicationBar/>
-       <SideBar chats={chats}/>
-       <Chat messages={messages}/>
-     </div>
-   );
+const ChatPage = ({ classes })=>  (
+  <div className={classes.root}>
+    <ApplicationBar/>
+    <SideBar chats={chats}/>
+    <Chat messages={messages}/>
+  </div>
+);
 
 export default withStyles(styles)(ChatPage);

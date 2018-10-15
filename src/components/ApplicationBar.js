@@ -7,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 const drawerWidth = 320;
 
-const styles = theme => ({
+const styles = {
   appBar: {
     position: 'fixed',
     width: `calc(100% - ${drawerWidth}px)`,
@@ -15,19 +15,19 @@ const styles = theme => ({
   title: {
     width: "80%",
   }
-});
+};
 
 const ApplicationBar = ({ classes })=>  (
-    <AppBar className={classes.appBar}>
-      <Toolbar>
-        <div className={classes.title}>
+  <AppBar className={classes.appBar}>
+    <Toolbar>
+      <div className={classes.title}>
         <Typography variant="title" color="inherit" noWrap>
           Chat on React
         </Typography>
-        </div>
-        <UserMenu/>
-      </Toolbar>
-    </AppBar>
-  );
+      </div>
+      <UserMenu/>
+    </Toolbar>
+  </AppBar>
+);
 
  export default withStyles (styles)(ApplicationBar);

@@ -1,36 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
-import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import SignInIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
-  layout: {
-    width: 'auto',
-    display: 'block', // Fix IE11 issue.
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-  },
   avatar: {
     margin: theme.spacing.unit,
     backgroundColor: theme.palette.secondary.main,
@@ -40,59 +17,90 @@ const styles = theme => ({
     marginTop: theme.spacing.unit,
     height:300,
   },
-  submit: {
+  loginSubmit: {
     marginTop: theme.spacing.unit * 6,
-  },
+  }
 });
 
-function WelcomePage(props) {
-  const { classes } = props;
+class SignInForm extends React.Component {
+  state = {
+    username: {
+      value: '',
+      isValid: true
+    },
+    password: {
+      value: '',
+      isValid: true
+    }
+  }
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockIcon />
-          </Avatar>
-          <Typography variant="h5">Sign in</Typography>
-          <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="username">Username</InputLabel>
-              <Input id="username" name="username" autoComplete="username" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="raised"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign in
-            </Button>
-          </form>
-        </Paper>
-      </main>
-    </React.Fragment>
-  );
+  handleInputChange = (event) => {
+    event.persist();
+    const { name, value } = event.target;
+    this.setState ((prevState) => ({
+      [name] : {
+        ...prevState[name],
+        value
+      }
+    }))
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { username, password } = this.state;
+    this.props.onSubmit(username.value, password.value);
+  }
+
+  render () {
+    const { classes } = this.props;
+    const { username, password } = this.state;
+
+    return (
+      <React.Fragment>
+        <Avatar className={classes.avatar}>
+          <SignInIcon/>
+        </Avatar>
+        <Typography variant="headline">Sign in</Typography>
+        <form className={classes.form} onSubmit={this.handleSubmit}>
+          <TextField 
+            required
+            fullWidth
+            label="Username"
+            name="username"
+            placeholder="Enter your username (required)"
+            type="text"
+            margin="normal"
+            autoComplete="username"
+            value={username.value}
+            onChange={this.handleInputChange}
+            error={!username.isValid}
+          />
+          <TextField 
+            required
+            fullWidth
+            label="Password"
+            name="password"
+            placeholder="Enter your password (required)"
+            type="text"
+            margin="normal"
+            autoComplete="password"
+            value={password.value}
+            onChange={this.handleInputChange}
+            error={!password.isValid}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="raised"
+            color="primary"
+            className={classes.loginSubmit}
+          >
+            Sign in
+          </Button>
+        </form>
+      </React.Fragment>    
+    );
+    }
 }
 
-WelcomePage.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(WelcomePage);
+export default withStyles(styles)(SignInForm);

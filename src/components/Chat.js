@@ -15,14 +15,10 @@ const styles = theme => ({
 });
 
 const Chat = ({classes, messages}) => (
-
-      <main className={classes.chatLayout}>
-        
-        <ChatMessagesList messages={messages} />
-
-        <InputMessage/>
-
-      </main>
-    );
+  <main className={classes.chatLayout}>
+    <ChatMessagesList messages={messages}/>
+    <InputMessage/>
+  </main>
+);
 
 export default withStyles (styles)(Chat)

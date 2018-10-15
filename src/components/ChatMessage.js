@@ -32,36 +32,36 @@ const styles = theme => ({
   }
 });
 
+
 const ChatMessage =({classes, sender, content, index, when}) => {
-
   const isMessageFromMe = sender === "me";
-
+  
   const userAvatar = (
     <Avatar colorFrom={sender}>{sender}</Avatar>
   );
 
   return (
-      <div key ={index} className={classnames(
-        classes.messageWrapper, 
-        isMessageFromMe && classes.ownMessageWrapper
-      )}>  
-       {!isMessageFromMe && userAvatar}  
-        <Paper className={classnames(
-          classes.message,
-          isMessageFromMe && classes.ownMessage
-        )}>
-          <Typography variant="body2"  className={classes.author}>
-            {sender}
-          </Typography>
-          <Typography variant="body1" >
-            {content}
-          </Typography>
-          <Typography variant="caption" >
-            {when}
-          </Typography>
-        </Paper>
-        {isMessageFromMe && userAvatar}    
-      </div>
+    <div key ={index} className={classnames(
+      classes.messageWrapper, 
+      isMessageFromMe && classes.ownMessageWrapper
+    )}>  
+      {!isMessageFromMe && userAvatar}  
+      <Paper className={classnames(
+        classes.message,
+        isMessageFromMe && classes.ownMessage
+      )}>
+        <Typography variant="body2"  className={classes.author}>
+          {sender}
+        </Typography>
+        <Typography variant="body1">
+          {content}
+        </Typography>
+        <Typography variant="caption">
+          {when}
+        </Typography>
+      </Paper>
+      {isMessageFromMe && userAvatar}    
+    </div>
   );
 }
 

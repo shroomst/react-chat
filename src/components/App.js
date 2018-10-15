@@ -1,18 +1,23 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import ChatPage from './ChatPage';
-import WelcomePage from './WelcomePage';
-import WelcomeTabs from './WelcomeTabs';
+import ChatPage from '../containers/ChatPage';
+import WelcomePage from '../containers/WelcomePage';
+import configureStore from '../store';
+
+const store = configureStore();
 
 const App = () => (
-  <Router>
-    <Switch>
-      <Route path="/chat" component={ChatPage}/>
-      <Route exact path="/(welcome)?" component={WelcomeTabs}/>
-      <Redirect to="/" />
-    </Switch>
-  </Router>
-)
+  <Provider store={store}>
+    <Router>
+      <Switch>
+        <Route exact path="/(welcome)?" component={WelcomePage}/>
+        <Route path="/chat" component={ChatPage}/>
+        <Redirect to="/"/>
+      </Switch>
+    </Router>
+  </Provider>
+);
 
 export default App;

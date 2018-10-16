@@ -11,7 +11,8 @@ const initialState = {
   isAuthenticated: !!token,
   user,
   token,
-  errorMessage: ''
+  errorSignInMessage: '',
+  errorRegisterMessage: '',
 };
 
 export default function auth(state = initialState, action) { // clear function для одного и того же входного значения тот же результат и не изменяет ничего снаружи себя
@@ -23,17 +24,31 @@ export default function auth(state = initialState, action) { // clear function �
         isAuthenticated: true,
         user: action.payload.user,
         token: action.payload.token,
-        errorMessage: ''
+        errorSignInMessage: '',
+        errorRegisterMessage: '',
       }
     case SIGNUP_FAILURE:
+    return {
+      ...state,
+      isAuthenticated: false,
+      user: null,
+      token: '',
+      errorRegisterMessage: action.payload.message,
+    }
     case LOGIN_FAILURE:
+    return {
+      ...state,
+      isAuthenticated: false,
+      user: null,
+      token: '',
+      errorSignInMessage: action.payload.message,
+    }
     case LOGOUT_SUCCESS:
       return {
         ...state,
         isAuthenticated: false,
         user: null,
         token: '',
-        errorMessage: action.payload,
       }
     default:
       return state;

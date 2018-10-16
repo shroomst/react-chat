@@ -74,7 +74,7 @@ class SignInForm extends React.Component {
             value={username.value}
             onChange={this.handleInputChange}
             error={!!errorMessage}
-            helperText={errorMessage.message}
+            helperText={errorMessage}
           />
           <TextField 
             required

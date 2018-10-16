@@ -7,6 +7,7 @@ import ChatPage from '../components/ChatPage';
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
   user: state.auth.user,
+  logoutMessage: state.auth.logoutMessage,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators ({

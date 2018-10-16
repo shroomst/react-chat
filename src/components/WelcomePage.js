@@ -44,7 +44,7 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { classes, signup, login, isAuthenticated, errorMessage } = this.props;
+    const { classes, signup, login, isAuthenticated, errorSignInMessage, errorRegisterMessage } = this.props;
     const { activeTab } = this.state;
 
     if (isAuthenticated) {
@@ -70,8 +70,8 @@ class WelcomePage extends React.Component {
           </AppBar>
           <main className={classes.layout}>
             <Paper className={classes.paper}>
-              {activeTab === 0 && <SignInForm onSubmit={login} errorMessage={errorMessage}/>}
-              {activeTab === 1 && <RegisterForm onSubmit={signup} errorMessage={errorMessage}/>}
+              {activeTab === 0 && <SignInForm onSubmit={login} errorMessage={errorSignInMessage}/>}
+              {activeTab === 1 && <RegisterForm onSubmit={signup} errorMessage={errorRegisterMessage}/>}
             </Paper>
           </main>
         </div>

@@ -87,7 +87,7 @@ class RegisterForm extends React.Component {
   }
 
   render () {
-    const { classes, errorMessage='' } = this.props;
+    const { classes, errorMessage } = this.props;
     const { username, password, confirmPassword, errorPasswordMessage } = this.state;
 
     return (
@@ -109,7 +109,7 @@ class RegisterForm extends React.Component {
             value={username.value}
             onChange={this.handleInputChange}
             error={!!errorMessage}
-            helperText={errorMessage.message}
+            helperText={errorMessage}
           />
           <TextField 
             required

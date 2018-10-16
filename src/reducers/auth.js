@@ -5,10 +5,11 @@ import {
 } from '../constants';
 
 const token = localStorage.getItem('token');
+const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
   isAuthenticated: !!token,
-  user: null,
+  user,
   token,
   errorMessage: ''
 };
@@ -18,7 +19,7 @@ export default function auth(state = initialState, action) { // clear function �
     case SIGNUP_SUCCESS: //обработка actions
     case LOGIN_SUCCESS:
       return {
-        ...state, // берет предыдущее состояние и переписывает в его еопии только то, что ниже
+        ...state, // берет предыдущее состояние и переписывает в его копии только то, что ниже
         isAuthenticated: true,
         user: action.payload.user,
         token: action.payload.token,

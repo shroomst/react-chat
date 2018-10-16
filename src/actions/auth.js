@@ -35,6 +35,7 @@ export function signup(username, password) {
         throw new Error('No token provided!');
       }
       localStorage.setItem('token', json.token);
+      localStorage.setItem('user', JSON.stringify(json.user));
       dispatch({
         type: SIGNUP_SUCCESS,
         payload: json
@@ -76,6 +77,7 @@ export function login(username, password) {
         throw new Error('No token provided!');
       }
       localStorage.setItem('token', json.token);
+      localStorage.setItem('user', JSON.stringify(json.user));
       dispatch({
         type: LOGIN_SUCCESS,
         payload: json
@@ -107,6 +109,7 @@ export function logout(token) {
       if (json.success) { 
         //... unsubscribe store here or not here ?
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         dispatch({
           type: LOGOUT_SUCCESS,
           payload: json

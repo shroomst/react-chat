@@ -21,7 +21,7 @@ const styles = theme => ({
 
 class ChatPage extends React.Component {
   render() {
-    const { classes, logout, isAuthenticated } = this.props;
+    const { classes, logout, isAuthenticated, user } = this.props;
 
     if (!isAuthenticated) {
       return (
@@ -31,7 +31,7 @@ class ChatPage extends React.Component {
 
     return (
       <div className={classes.root}>
-        <ApplicationBar logout={logout}/>
+        <ApplicationBar logout={logout} user={user}/>
         <SideBar chats={chats}/>
         <Chat messages={messages}/>
       </div>

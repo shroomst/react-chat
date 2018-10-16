@@ -25,7 +25,7 @@ const ApplicationBar = ({ classes , logout, user })=>  (
           Chat on React
         </Typography>
       </div>
-      {console.log(user)} Hello,{user.username}!
+      Hello,{user.username}!
       <UserMenu onLogout={logout}/>
     </Toolbar>
   </AppBar>

@@ -1,12 +1,11 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Redirect } from 'react-router-dom';
 
 import SideBar from './SideBar'
 import ApplicationBar from './ApplicationBar'
 import Chat from './Chat'
 
-import {chats, messages} from '../mock-data'
+import { messages} from '../mock-data'
 
 const styles = theme => ({
   root: {
@@ -20,14 +19,16 @@ const styles = theme => ({
 
 
 class ChatPage extends React.Component {
-  render() {
-    const { classes, logout, isAuthenticated, user } = this.props;
+componentDidMount() {
+  const { fetchAllChats, fetchMyChats } = this.props;
+  Promise.all([
+    fetchAllChats(),
+    fetchMyChats(),
+  ]);
+}
 
-    if (!isAuthenticated) {
-      return (
-        <Redirect to="/"/>
-      );
-    }
+  render() {
+    const { classes, logout, user, chats } = this.props;
 
     return (
       <div className={classes.root}>

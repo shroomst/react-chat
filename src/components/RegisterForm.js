@@ -142,7 +142,7 @@ class RegisterForm extends React.Component {
           <Button
             type="submit"
             fullWidth
-            variant="raised"
+            variant="contained"
             color="primary"
             className={classes.submit}
           >

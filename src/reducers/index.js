@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 import auth from './auth'
-//import * as reducers from './' пока что не работает
+import chats from './chats'
+
 
 export default combineReducers ({
   auth,
+  chats
 });

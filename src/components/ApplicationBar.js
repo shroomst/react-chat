@@ -21,12 +21,12 @@ const ApplicationBar = ({ classes , logout, user })=>  (
   <AppBar className={classes.appBar}>
     <Toolbar>
       <div className={classes.title}>
-        <Typography variant="title" color="inherit" noWrap>
+        <Typography variant="h6" color="inherit" noWrap>
           Chat on React
         </Typography>
       </div>
       Hello,{user.username}!
-      <UserMenu onLogout={logout}/>
+      <UserMenu onLogout={logout} username={user.username}/>
     </Toolbar>
   </AppBar>
 );

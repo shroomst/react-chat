@@ -76,4 +76,4 @@ class UserMenu extends React.Component {
   }
 }
 
-export default withStyles (styles)(UserMenu);
+export default withStyles(styles)(UserMenu);

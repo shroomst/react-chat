@@ -60,7 +60,7 @@ class SignInForm extends React.Component {
         <Avatar className={classes.avatar}>
           <SignInIcon/>
         </Avatar>
-        <Typography variant="headline">Sign in</Typography>
+        <Typography variant="h5">Sign in</Typography>
         <form className={classes.form} onSubmit={this.handleSubmit}>
           <TextField 
             required
@@ -92,7 +92,7 @@ class SignInForm extends React.Component {
           <Button
             type="submit"
             fullWidth
-            variant="raised"
+            variant="contained"
             color="primary"
             className={classes.loginSubmit}
           >

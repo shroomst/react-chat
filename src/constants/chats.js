@@ -12,3 +12,7 @@ export const FETCH_CHAT_FAILURE = Symbol('chats/FETCH_CHAT_FAILURE');
 
 export const SET_ACTIVE_CHAT = Symbol('chats/SET_ACTIVE_CHAT');
 export const UNSET_ACTIVE_CHAT = Symbol('chats/UNSET_ACTIVE_CHAT');
+
+export const ADD_CHAT_REQUEST = Symbol('chats/ADD_CHAT_REQUEST');
+export const ADD_CHAT_SUCCESS = Symbol('chats/ADD_CHAT_SUCCESS');
+export const ADD_CHAT_FAILURE = Symbol('chats/ADD_CHAT_FAILURE');

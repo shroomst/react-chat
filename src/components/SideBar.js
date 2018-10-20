@@ -17,7 +17,10 @@ const styles = theme => ({
   },
 });
 
-const SideBar = ({ classes, chats }) => (
+// class SideBar extends React.Component {
+
+// }
+const SideBar = ({ classes, chats, addChatHandler, changeSelectedChatsFilter, selectedChatsFilter }) => (
   <Drawer
     variant="permanent"
     classes={{
@@ -27,8 +30,8 @@ const SideBar = ({ classes, chats }) => (
     <SearchChat/>
     <Divider/>
     <ChatList chats={chats}/>
-    <BottomNav/>
-    <AddChat/>  
+    <BottomNav handleChange={changeSelectedChatsFilter} selectedChatsFilter={selectedChatsFilter}/>
+    <AddChat handler={addChatHandler}/> 
   </Drawer>
 );
 

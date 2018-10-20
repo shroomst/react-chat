@@ -23,6 +23,8 @@ const allIds = (state = initialState.allIds, action) => {
   switch(action.type) {
     case types.FETCH_ALL_CHATS_SUCCESS:
       return action.payload.chats.map(getChatId);
+    case types.ADD_CHAT_SUCCESS:
+      return state.concat(action.payload.chat._id);
     default:
       return state;
   }
@@ -32,6 +34,8 @@ const myIds = (state = initialState.myIds, action) => {
   switch(action.type) {
     case types.FETCH_MY_CHATS_SUCCESS:
       return action.payload.chats.map(getChatId);
+    case types.ADD_CHAT_SUCCESS:
+      return state.concat(action.payload.chat._id);
     default:
       return state;
   }
@@ -48,7 +52,11 @@ const byIds = (state = initialState.byIds, action) => {
           [chat._id]:chat
         }), {}),
       }
-    
+    case types.ADD_CHAT_SUCCESS:
+      return {
+        ...state,
+        [action.payload.chat._id]:action.payload.chat
+      }
     default:
       return state;
   }
@@ -58,7 +66,7 @@ export default combineReducers({
   activeId,
   allIds,
   myIds,
-  byIds
+  byIds,
 });
 
 export const getChatId = (chat) => chat._id;

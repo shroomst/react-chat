@@ -12,9 +12,15 @@ const styles = theme => ({
   },
 });
 
-const AddChat= ({ classes }) => (
+const AddChat = ({ classes, handler }) => (
   <div>
-    <Button variant="fab" color="primary" aria-label="Add" className={classes.addChatButton}>
+    <Button 
+      variant="fab" 
+      color="primary" 
+      aria-label="Add" 
+      className={classes.addChatButton}
+      onClick={handler}
+    >
       <AddIcon />
     </Button>
   </div>

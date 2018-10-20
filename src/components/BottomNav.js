@@ -13,11 +13,11 @@ const styles = {
   }
 };
 
-const BottomNav = ({ classes }) => (
+const BottomNav = ({ classes, handleChange, selectedChatsFilter }) => (
   <div className={classes.bottomNav}>
-    <BottomNavigation showLabels>
-      <BottomNavigationAction label="MyChats" icon={<RestoreIcon />}/>
-      <BottomNavigationAction label="Explore" icon={<ExploreIcon />}/>
+    <BottomNavigation showLabels onChange={handleChange} value={selectedChatsFilter}>
+      <BottomNavigationAction value="my" label="MyChats" icon={<RestoreIcon />}/>
+      <BottomNavigationAction value="all" label="Explore" icon={<ExploreIcon />}/>
     </BottomNavigation>
   </div>
 );

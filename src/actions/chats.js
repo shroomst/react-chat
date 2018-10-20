@@ -83,3 +83,23 @@ export function setActiveChat(chatId) {
     })
   }
 }
+
+export function addChat(chatName) {
+  return (dispatch, getState) => {
+    const { token } = getState().auth;
+
+    dispatch({
+      type: types.ADD_CHAT_REQUEST
+    });
+
+    return callApi('/chats/', token, { method: 'POST' }, { "data": {"title": chatName} })
+      .then(data => dispatch({
+        type: types.ADD_CHAT_SUCCESS,
+        payload: data
+      }))
+      .catch(reason => dispatch({
+        type: types.ADD_CHAT_FAILURE,
+        payload: reason
+      }))
+  }
+}

@@ -19,22 +19,16 @@ const styles = theme => ({
 
 const SideBar = ({ classes, chats }) => (
   <Drawer
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
+    variant="permanent"
+    classes={{
+      paper: classes.drawerPaper,
+    }}
   >
-
-    <SearchChat />
-
-    <Divider />
-    
-    <ChatList chats = {chats}/>
-
-    <BottomNav />
-
-    <AddChat />  
-
+    <SearchChat/>
+    <Divider/>
+    <ChatList chats={chats}/>
+    <BottomNav/>
+    <AddChat/>  
   </Drawer>
 );
 

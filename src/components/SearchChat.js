@@ -14,18 +14,15 @@ const styles = theme => ({
        },
 });
 
-function SearchChat(props) {
-    const {classes}=props;
-    return (
-        <div className={classes.drawerHeader}>
-            <Input 
-            placeholder="Search chats..."
-            className={classes.searchInput}
-            fullWidth
-            />
-        </div>
-    );
-}
+const SearchChat = ({ classes }) => (
+  <div className={classes.drawerHeader}>
+    <Input 
+    placeholder="Search chats..."
+    className={classes.searchInput}
+    fullWidth
+    />
+  </div>
+);
 
 export default withStyles(styles)(SearchChat);
 

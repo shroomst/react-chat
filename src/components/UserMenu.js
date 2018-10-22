@@ -6,19 +6,21 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 
-const styles = theme => ({
+const styles = {
   profileMenu: {
     display: "flex",
     justifyContent: 'flex-end',
     width: "100%",
   },
+  loggedUser: {
+    marginTop: 16,
+  },
   menuBar: {
-    top: 50,
+    top:50,
   }
-});
+};
 
 class UserMenu extends React.Component {
-
   state = {
     anchorEl: null,
   };
@@ -31,6 +33,11 @@ class UserMenu extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  handleEditProfile = () => {
+    this.handleClose();
+    this.props.userInfoHandler('userInfoModal');
+  }
+
   handleLogout = (event)=> {
     event.preventDefault();
     this.props.onLogout();
@@ -39,36 +46,34 @@ class UserMenu extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const open = Boolean(anchorEl);
-    const { classes } = this.props;
+    const { classes, username } = this.props;
 
     return (
       <div className={classes.profileMenu}>
+        <div className={classes.loggedUser}>
+          {username}
+        </div>
         <IconButton
-          aria-owns={open ? 'menu-appbar' : null}
+          aria-owns={!!anchorEl ? 'menu-user' : null}
           aria-haspopup="true"
           onClick={this.handleMenu}
           color="inherit"
         >
-          <AccountCircle />
+          <AccountCircle/>
         </IconButton>
         <Menu
-          id="menu-appbar"
+          id="menu-user"
           className={classes.menuBar}
           anchorEl={this.anchorEl}
+          open={!!anchorEl}
+          onClose={this.handleClose}
           anchorOrigin={{
             vertical: 'top',
             horizontal: 'right',
           }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
           getContentAnchorEl={null}
-          open={open}
-          onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>Edit Profile</MenuItem>
+          <MenuItem onClick={this.handleEditProfile}>Edit Profile</MenuItem>
           <MenuItem onClick={this.handleLogout}>Log Out</MenuItem>
         </Menu>
       </div>

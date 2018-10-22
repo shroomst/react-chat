@@ -1,22 +1,22 @@
-import * as types from '../constants';
+import * as types from '../constants/auth';
+import * as userTypes from '../constants/users';
 
 const token = localStorage.getItem('token');
-const user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
   isAuthenticated: !!token,
-  user,
+  user: null,
   token,
   errorSignInMessage: '',
   errorRegisterMessage: '',
 };
 
-export default function auth(state = initialState, action) { // clear function для одного и того же входного значения тот же результат и не изменяет ничего снаружи себя
+export default function auth(state = initialState, action) {
   switch (action.type) {
-    case types.SIGNUP_SUCCESS: //обработка actions
+    case types.SIGNUP_SUCCESS:
     case types.LOGIN_SUCCESS:
       return {
-        ...state, // берет предыдущее состояние и переписывает в его копии только то, что ниже
+        ...state,
         isAuthenticated: true,
         user: action.payload.user,
         token: action.payload.token,
@@ -58,6 +58,11 @@ export default function auth(state = initialState, action) { // clear function �
       return {
         ...state,
         isAuthenticated: true,
+        user: action.payload.user,
+      }
+    case userTypes.SAVE_USER_INFO_SUCCESS:
+      return {
+        ...state,
         user: action.payload.user,
       }
     default:

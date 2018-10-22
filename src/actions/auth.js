@@ -59,41 +59,36 @@ export function logout() {
     });
 
     return callApi('/logout', token)
-    .then(json => {
-      if (json.success) { 
+      .then(json => {
         localStorage.removeItem('token');
         dispatch({
           type: types.LOGOUT_SUCCESS,
           payload: json
         });
-        return;
-      }
-      throw new Error(json.message); 
-    })
-    .catch(reason => dispatch({
-      type: types.LOGOUT_FAILURE,
-      payload: reason
-    }));
+      })
+      .catch(reason => dispatch({
+        type: types.LOGOUT_FAILURE,
+        payload: reason
+      }));
   }
 }
 
 export function receiveAuth() {
   return (dispatch, getState) => {
     const { token } = getState().auth;
-    if (!token) {
-      dispatch ({
-        type:types.RECEIVE_AUTH_FAILURE
-      })
-    }
+
+    dispatch({
+      type: types.RECEIVE_AUTH_REQUEST,
+    });
 
     return callApi('/users/me', token)
-    .then(json => dispatch({
-        type: types.RECEIVE_AUTH_SUCCESS,
-        payload: json
-    }))
-    .catch(reason => dispatch({
-      type: types.RECEIVE_AUTH_FAILURE,
-      payload: reason
-    }));
+      .then(json => dispatch({
+          type: types.RECEIVE_AUTH_SUCCESS,
+          payload: json
+      }))
+      .catch(reason => dispatch({
+        type: types.RECEIVE_AUTH_FAILURE,
+        payload: reason
+      }));
   }
 }

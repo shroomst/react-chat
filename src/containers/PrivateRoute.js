@@ -3,7 +3,7 @@ import { Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { receiveAuth } from '../actions';
+import { receiveAuth } from '../actions/auth';
 
 class PrivateRoute extends React.Component {
   componentDidMount() {
@@ -17,13 +17,15 @@ class PrivateRoute extends React.Component {
       <Route {...rest} render={ props => (
         isAuthenticated 
           ? ( <Component {...props} /> )
-          : ( <Redirect to="/" />)
+          : ( <Redirect to={{
+            pathname: '/welcome',
+            state: { from: props.location }
+          }} />)
         )}
       />
     );
   }
 }
-
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,

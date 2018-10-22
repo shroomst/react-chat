@@ -14,15 +14,29 @@ const styles = theme => ({
        },
 });
 
-const SearchChat = ({ classes }) => (
-  <div className={classes.drawerHeader}>
-    <Input 
-    placeholder="Search chats..."
-    className={classes.searchInput}
-    fullWidth
-    />
-  </div>
-);
+class SearchChat extends React.Component {
+
+  inputHandler = (event) => {
+    event.persist();
+    const { value } = event.target;
+    const{ searchHandler } = this.props;
+    searchHandler(value);
+  }
+
+  render () {
+    const{ classes } = this.props;
+    return (
+      <div className={classes.drawerHeader}>
+        <Input 
+          placeholder="Search chats..."
+          className={classes.searchInput}
+          fullWidth
+          onChange={this.inputHandler}
+        />
+      </div>
+    );
+  }
+}
 
 export default withStyles(styles)(SearchChat);
 

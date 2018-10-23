@@ -51,7 +51,7 @@ const ChatMessage = ({classes, sender, content, activeUser, createdAt, statusMes
   
   const userAvatar = (
     <Avatar colorFrom={sender._id}>
-      {sender}
+      {senderName}
     </Avatar>
   );
 
@@ -59,13 +59,17 @@ const ChatMessage = ({classes, sender, content, activeUser, createdAt, statusMes
     <div className={classnames(classes.messageWrapper, isMessageFromMe && classes.ownMessageWrapper)}>  
       {!isMessageFromMe && userAvatar}  
       <Paper className={classnames(classes.message, isMessageFromMe && classes.ownMessage)}>
-        <Typography variant="body1" className={classes.author}>
-          {sender}
+        <Typography 
+          variant="body2" 
+          className={classes.author}
+          style={{ color: getColor(sender._id) }}
+        >
+          {senderName}
         </Typography>
-        <Typography variant="body2">
+        <Typography variant="body1">
           {content}
         </Typography>
-        <Typography variant="caption">
+        <Typography variant="caption" style={{ color: 'grey' }}>
           <Moment fromNow>{createdAt}</Moment>
         </Typography>
       </Paper>

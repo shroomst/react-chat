@@ -22,13 +22,13 @@ export default function configureStore() {
 
     const store = createStore (
       connectRouter(history)(rootReducer),
-      composeEnhancers (
-        applyMiddleware (
-          routerMiddleware(history),
-          thunkMiddleware,
-          loggerMiddleware
+        composeEnhancers (
+          applyMiddleware (
+            routerMiddleware(history),
+            thunkMiddleware,
+            loggerMiddleware
+          )
         )
-      )
     );
 
     if (module.hot) {

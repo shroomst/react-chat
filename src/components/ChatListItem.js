@@ -23,7 +23,7 @@ const ChatListItem = ({ classes, index, title, updatedAt, chatId, active, disabl
     className={active ? classes.activeChat : ''}
     disabled={disabled}
   >
-    <Avatar colorFrom={title} >{title}</Avatar>
+    <Avatar colorFrom={chatId} >{title}</Avatar>
     <ListItemText primary={title} secondary={<Moment fromNow>{updatedAt}</Moment>}/>
   </ListItem>
 );

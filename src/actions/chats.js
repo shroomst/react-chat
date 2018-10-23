@@ -75,7 +75,7 @@ export function setActiveChat(chatId) {
       .then(data => {
         if (!data) {
           dispatch(redirect('/chat'));
-          
+
           return dispatch({
             type: types.UNSET_ACTIVE_CHAT,  
           });
@@ -190,11 +190,6 @@ export function leaveChat(chatId) {
           type: types.LEAVE_CHAT_SUCCESS,
           payload: data
         });
-
-        dispatch( {
-          type: types.UNSET_ACTIVE_CHAT,
-          payload: data,
-        } )
 
         return data;
       })

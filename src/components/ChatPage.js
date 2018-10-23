@@ -160,6 +160,7 @@ class ChatPage extends React.Component {
         </Modal>
         <SideBar 
           chats={(selectedChatsFilter === 'my') ? chats.my : chats.all}
+          activeChat={chats.active}
           addChatHandler={this.handleModal}
           changeSelectedChatsFilter={this.changeSelectedChatsFilter}
           selectedChatsFilter={selectedChatsFilter}

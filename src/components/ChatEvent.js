@@ -19,11 +19,10 @@ const styles = theme => ({
 
 const ChatEvent = ({ classes, senderName, color, senderCreatedAt, content }) => (
   <div className={classes.messageWrapper}>
-    <Typography className={classes.statusMessage}>
+    <div className={classes.statusMessage}>
       <Typography 
         variant="h6" 
-        color={color}
-        style={{ display: 'inline' }}
+        style={{ display: 'inline', color: color }}
       >
         {senderName}
       </Typography> 
@@ -31,7 +30,7 @@ const ChatEvent = ({ classes, senderName, color, senderCreatedAt, content }) => 
       <Typography variant="caption" /*component="span"*/>
         {<Moment fromNow>{senderCreatedAt}</Moment>}
       </Typography>
-    </Typography>
+    </div>
   </div>  
 );
 

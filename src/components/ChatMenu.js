@@ -63,6 +63,7 @@ class ChatMenu extends React.Component {
           className={classes.userMenu}
           anchorOrigin={{
             vertical: 'top',
+            horizontal: 'left',
           }}
           getContentAnchorEl={null}
         >

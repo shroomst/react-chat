@@ -45,9 +45,9 @@ class SideBar extends React.Component {
   }
 
   render() {
-    const { classes, chats, addChatHandler, changeSelectedChatsFilter, selectedChatsFilter } = this.props;
+    const { classes, chats, addChatHandler, changeSelectedChatsFilter, selectedChatsFilter, activeChat } = this.props;
     const { searchValue } = this.state;
-
+  
     return (
       <Drawer
         variant="permanent"
@@ -59,7 +59,7 @@ class SideBar extends React.Component {
         <Divider/>
         <ChatList 
           chats={this.searchChatList(chats, searchValue)}
-          activeChat={chats.active}
+          activeChat={activeChat}
         />
         <BottomNav 
           handleChange={changeSelectedChatsFilter} 

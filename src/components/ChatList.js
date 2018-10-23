@@ -15,7 +15,6 @@ const styles = {
     textAlign: 'center',
   }
 };
-
 const ChatList = ({ classes, chats, activeChat }) => (
   <List className={classes.chatList}>
     {chats && chats.length 
@@ -23,7 +22,7 @@ const ChatList = ({ classes, chats, activeChat }) => (
         chats.map((chat) => (
           <ChatListItem 
             key={chat._id} 
-            active={activeChat && activeChat._id === chat._id}
+            active={activeChat && (activeChat._id === chat._id)}
             chatId={chat._id}
             {...chat}
           />

@@ -25,7 +25,7 @@ export default function colorFrom(string) {
       .map(char=>char.charCodeAt())
       .reduce((sum, num) => sum + num, 0);
     const colorIndex = index % colors.length;
-    return colors[colorIndex][500];
+    return colors[colorIndex][400];
   } catch (e) {
     console.error(e);
     return deepPurple[500];

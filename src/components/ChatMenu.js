@@ -9,7 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 const styles ={
   userMenu: {
     top: 50,
-    left:400
+    left:400 // временный костыль, пока не разберусь в верстке.
   }
 };
 

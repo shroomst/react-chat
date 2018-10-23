@@ -1,6 +1,7 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import Modal from 'react-modal';
+
+import { withStyles } from '@material-ui/core/styles';
 
 import SideBar from './SideBar';
 import ApplicationBar from './ApplicationBar';
@@ -75,7 +76,6 @@ class ChatPage extends React.Component {
       selectedChatsFilter: (value === 'my') ? 'my' : 'all'
     }));
   }
-
 
   closeModal() {
     this.setState((prevState)=> ({ 

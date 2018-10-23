@@ -15,6 +15,7 @@ const styles = {
     textAlign: 'center',
   }
 };
+
 const ChatList = ({ classes, chats, activeChat }) => (
   <List className={classes.chatList}>
     {chats && chats.length 
@@ -26,7 +27,8 @@ const ChatList = ({ classes, chats, activeChat }) => (
             chatId={chat._id}
             {...chat}
           />
-        )))
+        ))
+      )
       : (
         <Typography variant="subtitle1" className={classes.noChats}>
           No chats yet...
@@ -36,4 +38,4 @@ const ChatList = ({ classes, chats, activeChat }) => (
   </List>
 );
 
-export default withStyles (styles) (ChatList);
+export default withStyles (styles)(ChatList);

@@ -13,9 +13,10 @@ export function saveUserInfo(username, firstName, lastName) {
     return callApi('/users/me', token, { method: 'POST' }, { data: { username, firstName, lastName} })
       .then(data => {
         dispatch({
-        type: types.SAVE_USER_INFO_SUCCESS,
-        payload: data
+          type: types.SAVE_USER_INFO_SUCCESS,
+          payload: data
         });
+
         return data;
       })
       .catch(reason => dispatch({

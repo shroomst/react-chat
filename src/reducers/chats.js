@@ -72,7 +72,7 @@ const byIds = (state = initialState.byIds, action) => {
         [getChatId(action.payload.chat)]:action.payload.chat
       }
     case types.DELETE_CHAT_SUCCESS:
-      //return state.filter(chat => chat.get('id') !== getChatId(action.payload.chat)));
+      //return state.filter(chat => chat.get('id') !== getChatId(action.payload.chat)); наверняка можно доработать фильтр, чтобы избежать кода ниже.
       const newState = { ...state };
       delete newState[getChatId(action.payload.chat)]
       return newState;

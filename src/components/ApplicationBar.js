@@ -45,14 +45,16 @@ const ApplicationBar = ({ classes , logout, activeUser, userInfoHandler, leaveCh
           </React.Fragment>
         )
         : (
-          <Typography variant="h6" color="inherit" noWrap className={classes.title}>
+          <Typography variant="h5" color="inherit" noWrap className={classes.title}>
             Chat on React
           </Typography>
-        )}
+        )
+      }
       <UserMenu 
         onLogout={logout} 
         username={!!activeUser ? activeUser.username : ''}
-        userInfoHandler={userInfoHandler}/>
+        userInfoHandler={userInfoHandler}
+      />
     </Toolbar>
   </AppBar>
 );

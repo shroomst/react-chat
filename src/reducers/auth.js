@@ -45,6 +45,7 @@ export default function auth(state = initialState, action) {
         isAuthenticated: false,
         user: null,
         token: '',
+        errorSignInMessage: ''
       }
     case types.RECEIVE_AUTH_FAILURE:
       return {
@@ -52,7 +53,7 @@ export default function auth(state = initialState, action) {
         isAuthenticated: false,
         user: null,
         token: '',
-        errorSignInMessage: 'Session expired. Please login'
+        errorSignInMessage: 'Session expired. Please login again.'
       }
     case types.RECEIVE_AUTH_SUCCESS:
       return {

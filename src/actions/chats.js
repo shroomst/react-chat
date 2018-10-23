@@ -121,16 +121,16 @@ export function deleteChat(chatId) {
   }
 }
 
-export function addChat(chatName) {
+export function addChat(title) {
   return (dispatch, getState) => {
     const { token } = getState().auth;
 
     dispatch({
       type: types.ADD_CHAT_REQUEST,
-      payload: { chatName }
+      payload: { title }
     });
 
-    return callApi('/chats/', token, { method: 'POST' }, { data: { title : chatName} })
+    return callApi('/chats/', token, { method: 'POST' }, { data: { title } })
       .then( ({ chat }) => {
         dispatch({
           type: types.ADD_CHAT_SUCCESS,

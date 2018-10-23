@@ -34,7 +34,7 @@ const styles = theme => ({
 });
 
 
-const ChatMessage = ({classes, sender, content, activeUser, createdAt, statusMessage}) => {
+const ChatMessage = ({ classes, sender, content, activeUser, createdAt, statusMessage }) => {
   const isMessageFromMe = sender._id === activeUser._id;
   const senderName = getSenderName(sender);
 

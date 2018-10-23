@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
+
 import ChatList from './ChatList'
 import BottomNav from './BottomNav'
 import AddChatButton from './AddChatButton'
@@ -9,13 +11,13 @@ import SearchChat from './SearchChat'
 
 const drawerWidth = 320;
 
-const styles = theme => ({
+const styles = {
   drawerPaper: {
     position: 'relative',
     height: '100%',
     width: drawerWidth,
   },
-});
+};
 
 class SideBar extends React.Component {
   state = {

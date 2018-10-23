@@ -4,6 +4,14 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles ={
+  userMenu: {
+    top: 50,
+    left:400
+  }
+};
 
 class ChatMenu extends React.Component {
   state = {
@@ -30,7 +38,7 @@ class ChatMenu extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
-    const { disabled, activeUser } = this.props;
+    const { classes, disabled, activeUser } = this.props;
 
     if (!activeUser.isChatMember) {
       return null;
@@ -52,6 +60,11 @@ class ChatMenu extends React.Component {
           anchorEl={this.anchorEl}
           open={!!anchorEl}
           onClose={this.handleClose}
+          className={classes.userMenu}
+          anchorOrigin={{
+            vertical: 'top',
+          }}
+          getContentAnchorEl={null}
         >
           {activeUser.isMember && <MenuItem onClick={this.handleLeaveClick}>Leave</MenuItem>}
           {activeUser.isCreator && <MenuItem onClick={this.handleDeleteClick}>Delete</MenuItem>}
@@ -61,4 +74,4 @@ class ChatMenu extends React.Component {
   }
 }
 
-export default ChatMenu;
+export default withStyles(styles)(ChatMenu);

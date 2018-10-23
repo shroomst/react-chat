@@ -55,7 +55,7 @@ class InputMessage extends React.Component {
                 fullWidth
                 variant="contained"
                 color="primary"
-                onclick={onJoinButtonClick}
+                onClick={onJoinButtonClick}
               >
                 Join Chat
               </Button>

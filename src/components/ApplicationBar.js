@@ -34,8 +34,8 @@ const ApplicationBar = ({ classes , logout, activeUser, userInfoHandler, leaveCh
             <Avatar colorFrom={activeChat._id}>
               {activeChat.title}
             </Avatar>
-            <Typography variant="h6" color="inherit" noWrap className={classes.title}>
-              {activeChat.title}
+            <Typography variant="h5" color="inherit" noWrap className={classes.title}>
+            {activeChat.title}
               <ChatMenu
                 activeUser={activeUser}
                 onLeaveClick={() => leaveChat(activeChat._id)}

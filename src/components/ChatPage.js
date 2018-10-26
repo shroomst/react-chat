@@ -86,27 +86,38 @@ class ChatPage extends React.Component {
   }
 
   componentDidMount() {
-    const { match, fetchAllChats, fetchMyChats, setActiveChat } = this.props;
+    const { match, 
+            fetchAllChats, 
+            fetchMyChats, 
+            setActiveChat, 
+            socketConnect, 
+            mountChat 
+          } = this.props;
     
     Promise.all([
       fetchAllChats(),
       fetchMyChats(),
     ])
+      .then (()=> {
+        socketConnect()
+      })
       .then(() => {
-        // If we pass a chatId, then fetch messages from chat
-        if (match.params.chatId) {
-          setActiveChat(match.params.chatId);
+        const { chatId } = match.params;
+        if (chatId) {
+          setActiveChat(chatId);
+          mountChat(chatId);
         }
       });
   }
 
   componentWillReceiveProps(nextProps) {
     
-    const { match: { params }, setActiveChat } = this.props;
+    const { match: { params }, setActiveChat, mountChat, unmountChat } = this.props;
     const { params: nextParams } = nextProps.match;
-    // If we change route, then fetch messages from chat by chatID
     if (nextParams.chatId && params.chatId !== nextParams.chatId) {
       setActiveChat(nextParams.chatId);
+      unmountChat(params.chatId);
+      mountChat(nextParams.chatId);
     }
   }
 

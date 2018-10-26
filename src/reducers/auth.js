@@ -40,13 +40,6 @@ export default function auth(state = initialState, action) {
       errorSignInMessage: action.payload.message,
     }
     case types.LOGOUT_SUCCESS:
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null,
-        token: '',
-        errorSignInMessage: ''
-      }
     case types.RECEIVE_AUTH_FAILURE:
       return {
         ...state,

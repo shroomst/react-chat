@@ -164,7 +164,7 @@ export function joinChat(chatId) {
           payload: { chat }
         });
 
-        dispatch(redirect(`/chat/${chat._id}`));
+        dispatch(fetchChat(chatId));
 
         return chat;
       })
@@ -190,37 +190,12 @@ export function leaveChat(chatId) {
           type: types.LEAVE_CHAT_SUCCESS,
           payload: data
         });
-
-        return data;
+        
+        return dispatch(fetchChat(chatId));
       })
       .catch(reason => dispatch({
         type: types.LEAVE_CHAT_FAILURE,
         payload: reason
       }))
-  }
-}
-
-export function sendMessage(chatId, content) {
-  return (dispatch, getState) => {
-    const { token } = getState().auth;
-
-    dispatch ({
-      type: types.SEND_MESSAGE_REQUEST,
-      payload: { chatId, content }
-    });
-
-    return callApi(`/chats/${chatId}`, token, {method: 'POST'}, { data: { content }})
-      .then( data => {
-        dispatch({
-          type: types.SEND_MESSAGE_SUCCESS,
-          payload: data
-        });
-
-        dispatch(fetchChat(chatId));
-      })
-      .catch(reason => dispatch({
-        type: types.SEND_MESSAGE_FAILURE,
-        payload: reason,
-      }));
   }
 }

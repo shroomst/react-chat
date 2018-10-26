@@ -22,7 +22,7 @@ class AddChat extends React.Component {
 
   validate() {
     const { chatName } = this.state;
-    const isValid = (/^[A-Za-z0-9а-яА-Я -.?!]+$/.test(chatName.value)) ? true : false;
+    const isValid = (/^[A-Za-z0-9а-яА-Я -.?!]+$/.test(chatName.value)) && (this.chatName.value.length > 0) ? true : false;
 
     this.setState ((prevState) => ({
       chatName: {

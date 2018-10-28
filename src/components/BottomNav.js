@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -13,11 +14,11 @@ const styles = {
   }
 };
 
-const BottomNav = ({ classes }) => (
+const BottomNav = ({ classes, handleChange, selectedChatsFilter }) => (
   <div className={classes.bottomNav}>
-    <BottomNavigation showLabels>
-      <BottomNavigationAction label="MyChats" icon={<RestoreIcon />}/>
-      <BottomNavigationAction label="Explore" icon={<ExploreIcon />}/>
+    <BottomNavigation showLabels onChange={handleChange} value={selectedChatsFilter}>
+      <BottomNavigationAction value="my" label="MyChats" icon={<RestoreIcon />}/>
+      <BottomNavigationAction value="all" label="Explore" icon={<ExploreIcon />}/>
     </BottomNavigation>
   </div>
 );

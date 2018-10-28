@@ -24,7 +24,7 @@ const WelcomeHeaderBar = ({ classes }) => (
       <Avatar className={classes.avatar}>
         <ChatIcon />
       </Avatar>
-      <Typography variant="title" color="inherit" noWrap>
+      <Typography variant="h6" color="inherit" noWrap>
         React Chat
       </Typography>
     </Toolbar>

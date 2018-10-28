@@ -1,21 +1,37 @@
-// for future development
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Moment from 'react-moment';
 
-const ChatEvent = ({ colorA, author, event, when }) => (
-  <React.Fragment>
-    <div style ={{display: "flex"}}>
-      <Typography variant="body1" color={colorA}>
-        {author} 
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  statusMessage: {
+    width: '100%',
+    textAlign: 'center'
+  },
+  messageWrapper : {
+    display: 'flex',
+    padding: theme.spacing.unit * 2,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+});
+
+const ChatEvent = ({ classes, senderName, color, senderCreatedAt, content }) => (
+  <div className={classes.messageWrapper}>
+    <div className={classes.statusMessage}>
+      <Typography 
+        variant="subtitle1" 
+        style={{ display: 'inline', color: color }}
+      >
+        {senderName}
       </Typography> 
-      <Typography variant="body1"  style={{marginLeft:5}}>
-        has {event}
+        { content }
+      <Typography variant="caption" /*component="span"*/>
+        { <Moment fromNow>{senderCreatedAt}</Moment> }
       </Typography>
-    </div>  
-    <Typography variant="caption" >
-      {when}
-    </Typography>
-  </React.Fragment>
+    </div>
+  </div>  
 );
 
-export default ChatEvent;
+export default withStyles(styles)(ChatEvent);

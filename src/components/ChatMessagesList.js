@@ -1,5 +1,9 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 import ChatMessage from './ChatMessage'
 
@@ -10,6 +14,9 @@ const styles = theme => ({
     width: '100%',
     paddingTop: theme.spacing.unit * 3,
     paddingBottom: 120,
+  },
+  paper: {
+    padding: theme.spacing.unit * 3
   }
 });
 
@@ -32,22 +39,43 @@ class ChatMessagesList extends React.Component {
   }
 
   render () {
-    const {messages, classes} = this.props;
+    const { messages, classes, match, activeUser } = this.props;
 
-    return (
-      <div className={classes.messagesWrapper} ref="messagesWrapper">
-        {messages && messages.map((message, index) => {
-          return (
+     // If there's no active chat, then show a tip
+    if (!match.params.chatId) {
+      return (
+        <Paper className={classes.paper}>
+          <Typography variant="h4" gutterBottom>
+            Start messaging…
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            Use <strong>Explore</strong> to explore chats around here.
+          </Typography>
+          <Typography variant="body2" gutterBottom>
+            Use <strong>MyChats</strong> to see your own chats.
+          </Typography>
+        </Paper>
+      );
+    }
+
+    return messages && messages.length 
+      ? (
+        <div className={classes.messagesWrapper} ref="messagesWrapper">
+          { messages.map((message, index) => (
             <ChatMessage 
               {...message}
               key={index}
-              when='a few seconds ago' 
+              activeUser={activeUser}
             />
-          )}
-        )}
-      </div>
-    );
+          ))}
+        </div>
+      )
+      : (
+        <Typography variant="h4">
+          No messages yet...
+        </Typography>
+      );
   }
 }
 
-export default withStyles (styles)(ChatMessagesList);
+export default withRouter(withStyles(styles)(ChatMessagesList));

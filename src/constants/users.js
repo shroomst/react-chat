@@ -1,0 +1,3 @@
+export const SAVE_USER_INFO_REQUEST = Symbol('user/SAVE_USER_INFO_REQUEST');
+export const SAVE_USER_INFO_SUCCESS = Symbol('user/SAVE_USER_INFO_SUCCESS');
+export const SAVE_USER_INFO_FAILURE = Symbol('user/SAVE_USER_INFO_FAILURE');

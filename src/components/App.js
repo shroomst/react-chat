@@ -1,23 +1,31 @@
-import React from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
-import { Provider } from 'react-redux';
+import React from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { ConnectedRouter } from 'connected-react-router'
 
-import ChatPage from '../containers/ChatPage';
-import WelcomePage from '../containers/WelcomePage';
-import configureStore from '../store';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
-const store = configureStore();
+import ChatPage from '../containers/ChatPage'
+import WelcomePage from '../containers/WelcomePage'
+import PrivateRoute from '../containers/PrivateRoute'
+import history from '../utils/history'
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+    suppressDeprecationWarnings: true
+  }
+});
 
 const App = () => (
-  <Provider store={store}>
-    <Router>
+  <MuiThemeProvider theme={theme}>
+    <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/(welcome)?" component={WelcomePage}/>
-        <Route path="/chat" component={ChatPage}/>
+        <PrivateRoute path="/chat/:chatId?" component={ChatPage}/>
         <Redirect to="/"/>
       </Switch>
-    </Router>
-  </Provider>
+    </ConnectedRouter>
+  </MuiThemeProvider>
 );
 
 export default App;

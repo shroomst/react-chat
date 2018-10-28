@@ -12,7 +12,14 @@ let socket = null;
 
 export function socketConnect() {
   return (dispatch, getState) => {
-    const { token } = getState().auth;
+    const state = getState();
+    const { token } = state.auth;
+    const { isFetching } = state.services;
+
+    if (isFetching.socket) {
+      return Promise.resolve()
+    }
+
     dispatch({
       type: types.SOCKET_CONNECTION_REQUEST,
     });
@@ -33,7 +40,7 @@ export function socketConnect() {
       });
     });
 
-    socket.on('connect)error', ()=> {
+    socket.on('connect_error', ()=> {
       dispatch({
         type: types.SOCKET_CONNECTION_FAILURE,
       })
@@ -62,7 +69,7 @@ export function socketConnect() {
       });
 
       if (activeId === chat._id)
-        dispatch(redirect('/chat'));
+        dispatch(redirect('/chat')); // можно оставить просмотр чата просто сделать лив
     });
   }
 }
@@ -78,7 +85,7 @@ export function sendMessage(content) {
     socket.emit('send-message', {
       chatId: activeId,
       content,
-    }, () => {
+    }, () => { // on success callback
       dispatch({
         type: types.SEND_MESSAGE,
         payload: {
@@ -97,6 +104,7 @@ export function mountChat(chatId) {
     }
     
     socket.emit('mount-chat', chatId);
+
     dispatch({
       type: types.MOUNT_CHAT,
       payload: { chatId },
@@ -111,6 +119,7 @@ export function unmountChat(chatId) {
     }
     
     socket.emit('unmount-chat', chatId);
+
     dispatch({
       type: types.UNMOUNT_CHAT,
       payload: { chatId },

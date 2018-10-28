@@ -99,7 +99,7 @@ class ChatPage extends React.Component {
       fetchMyChats(),
     ])
       .then (()=> {
-        socketConnect()
+        socketConnect();
       })
       .then(() => {
         const { chatId } = match.params;

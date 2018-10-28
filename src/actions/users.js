@@ -3,7 +3,13 @@ import * as types from '../constants/users';
 
 export function saveUserInfo(username, firstName, lastName) {
   return (dispatch, getState) => {
-    const { token } = getState().auth;
+    const state = getState();
+    const { token } = state.auth;
+    const { isFetching } = state.services;
+
+    if (isFetching.saveUserInfo) {
+      return Promise.resolve()
+    }
 
     dispatch({
       type: types.SAVE_USER_INFO_REQUEST,

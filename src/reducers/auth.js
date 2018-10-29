@@ -7,8 +7,6 @@ const initialState = {
   isAuthenticated: !!token,
   user: null,
   token,
-  errorSignInMessage: '',
-  errorRegisterMessage: '',
 };
 
 export default function auth(state = initialState, action) {
@@ -20,25 +18,9 @@ export default function auth(state = initialState, action) {
         isAuthenticated: true,
         user: action.payload.user,
         token: action.payload.token,
-        errorSignInMessage: '',
-        errorRegisterMessage: '',
       }
     case types.SIGNUP_FAILURE:
-    return {
-      ...state,
-      isAuthenticated: false,
-      user: null,
-      token: '',
-      errorRegisterMessage: action.payload.message,
-    }
     case types.LOGIN_FAILURE:
-    return {
-      ...state,
-      isAuthenticated: false,
-      user: null,
-      token: '',
-      errorSignInMessage: action.payload.message,
-    }
     case types.LOGOUT_SUCCESS:
     case types.RECEIVE_AUTH_FAILURE:
       return {
@@ -46,7 +28,6 @@ export default function auth(state = initialState, action) {
         isAuthenticated: false,
         user: null,
         token: '',
-        errorSignInMessage: 'Session expired. Please login again.'
       }
     case types.RECEIVE_AUTH_SUCCESS:
       return {

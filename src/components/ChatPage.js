@@ -8,6 +8,7 @@ import ApplicationBar from './ApplicationBar';
 import Chat from './Chat';
 import AddChat from './AddChat';
 import UserInfo from './UserInfo';
+import ErrorMessage from './ErrorMessage';
 
 const styles = theme => ({
   chatPage: {
@@ -132,7 +133,10 @@ class ChatPage extends React.Component {
             sendMessage, 
             joinChat, 
             leaveChat, 
-            deleteChat } = this.props;
+            deleteChat,
+            error,
+            isConnected,
+           } = this.props;
     const { modalAddChatIsOpen, modalUserInfoIsOpen } = this.state;
     const { selectedChatsFilter } = this.state;
 
@@ -145,6 +149,7 @@ class ChatPage extends React.Component {
           leaveChat={leaveChat}
           deleteChat={deleteChat}
           userInfoHandler={this.handleModal}
+          isConnected={isConnected}
         />
         <Modal
           isOpen={modalAddChatIsOpen} 
@@ -154,6 +159,7 @@ class ChatPage extends React.Component {
           <AddChat 
             onSubmit={addChat} 
             closeModals={this.closeModal}
+            disabled={!isConnected}
           />
         </Modal>
         <Modal
@@ -167,6 +173,7 @@ class ChatPage extends React.Component {
             username={(!!activeUser) ? activeUser.username: ''}
             firstName={(!!activeUser) ? activeUser.firstName: ''}
             lastName={(!!activeUser) ? activeUser.lastName: ''}
+            disabled={!isConnected}
           />
         </Modal>
         <SideBar 
@@ -175,6 +182,7 @@ class ChatPage extends React.Component {
           addChatHandler={this.handleModal}
           changeSelectedChatsFilter={this.changeSelectedChatsFilter}
           selectedChatsFilter={selectedChatsFilter}
+          isConnected={isConnected}
         />
         <Chat 
           messages={messages} 
@@ -182,7 +190,9 @@ class ChatPage extends React.Component {
           joinChat={joinChat}
           activeChat={chats.active}
           activeUser={activeUser}
+          isConnected={isConnected}
         />
+        <ErrorMessage error={error}/>
       </div>
     );
   }

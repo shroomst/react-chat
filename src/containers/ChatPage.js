@@ -26,7 +26,8 @@ const mapStateToProps = state => {
       isChatMember: fromState.isChatMember(state, activeChat)
     },
     messages: state.messages,
-    logoutMessage: state.auth.logoutMessage,
+    error: state.services.errors.chat,
+    isConnected: state.services.isConnected,
   };
 };
 

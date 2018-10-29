@@ -5,6 +5,7 @@ import redirect from './services';
 export function lostSocketConnection() {
   return {
     type: types.SOCKET_CONNECTION_LOST,
+    payload: new Error('Connection lost. Trying to connect...'),
   }
 }
 
@@ -34,15 +35,17 @@ export function socketConnect() {
       });
     });
 
-    socket.on('error', ()=> {
+    socket.on('error', (error)=> {
       dispatch({
         type: types.SOCKET_CONNECTION_FAILURE,
+        payload: new Error(`Connection error: ${error}`),
       });
     });
 
     socket.on('connect_error', ()=> {
       dispatch({
         type: types.SOCKET_CONNECTION_FAILURE,
+        payload: new Error('Connection lost :`( Connecting...'),
       })
     });
 
@@ -56,7 +59,7 @@ export function socketConnect() {
     socket.on('new-chat', ({ chat })=> {
       dispatch({
         type: types.RECEIVE_NEW_CHAT,
-        payload: chat,
+        payload: { chat },
       });
     });
 
@@ -65,11 +68,11 @@ export function socketConnect() {
 
       dispatch({
         type: types.RECEIVE_DELETED_CHAT,
-        payload: chat,
+        payload: { chat },
       });
 
       if (activeId === chat._id)
-        dispatch(redirect('/chat')); // можно оставить просмотр чата просто сделать лив
+        dispatch(redirect('/chat')); 
     });
   }
 }
@@ -107,7 +110,7 @@ export function mountChat(chatId) {
 
     dispatch({
       type: types.MOUNT_CHAT,
-      payload: { chatId },
+      payload: chatId,
     });
   }
 }
@@ -122,7 +125,7 @@ export function unmountChat(chatId) {
 
     dispatch({
       type: types.UNMOUNT_CHAT,
-      payload: { chatId },
+      payload: chatId,
     })
   }
 }

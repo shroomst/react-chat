@@ -24,7 +24,7 @@ class AddChatButton extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, disabled } = this.props;
 
     return (
       <div>
@@ -34,6 +34,7 @@ class AddChatButton extends React.Component {
           aria-label="Add" 
           className={classes.addChatButton}
           onClick={this.clickHandler}
+          disabled={disabled}
         >
           <AddIcon />
         </Button>

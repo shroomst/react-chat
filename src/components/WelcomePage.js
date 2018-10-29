@@ -39,10 +39,6 @@ class WelcomePage extends React.Component {
     activeTab: 0,
   };
 
-  componentDidMount() {
-    this.props.receiveAuth();
-  }
-
   handleChange = (event, value) => {
     this.setState({ activeTab: value });
   };
@@ -83,6 +79,5 @@ class WelcomePage extends React.Component {
     );
   }
 }
-
 
 export default withStyles (styles)(WelcomePage);

@@ -17,17 +17,17 @@ export function saveUserInfo(username, firstName, lastName) {
     });
 
     return callApi('/users/me', token, { method: 'POST' }, { data: { username, firstName, lastName} })
-      .then(data => {
+      .then(json => {
         dispatch({
           type: types.SAVE_USER_INFO_SUCCESS,
-          payload: data
+          payload: json,
         });
 
-        return data;
+        return json;
       })
       .catch(reason => dispatch({
         type: types.SAVE_USER_INFO_FAILURE,
-        payload: reason
+        payload: reason,
       }))
   }
 }

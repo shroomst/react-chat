@@ -16,12 +16,13 @@ const styles = {
   }
 };
 
-const ChatList = ({ classes, chats, activeChat }) => (
+const ChatList = ({ classes, chats, activeChat, disabled }) => (
   <List className={classes.chatList}>
     {chats && chats.length 
       ? (
         chats.map((chat) => (
           <ChatListItem 
+            disabled={disabled}
             key={chat._id} 
             active={activeChat && (activeChat._id === chat._id)}
             chatId={chat._id}

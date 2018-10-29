@@ -44,7 +44,7 @@ class InputMessage extends React.Component {
   }
 
   render () {
-    const { classes, showJoinButton, onJoinButtonClick } = this.props;
+    const { classes, showJoinButton, onJoinButtonClick, disabled } = this.props;
 
     return (
       <div className={classes.messageInputWrapper}>
@@ -56,6 +56,7 @@ class InputMessage extends React.Component {
                 variant="contained"
                 color="primary"
                 onClick={onJoinButtonClick}
+                disabled={disabled}
               >
                 Join Chat
               </Button>
@@ -67,6 +68,7 @@ class InputMessage extends React.Component {
                 value={this.state.value}
                 onChange={this.handleValueChange}
                 onKeyPress={this.handleKeyPress}
+                disabled={disabled}
               />
             )
              }

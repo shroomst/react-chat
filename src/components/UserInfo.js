@@ -65,7 +65,7 @@ class UserInfo extends React.Component {
   }
 
   render () {
-    const { classes, closeModals } = this.props;
+    const { classes, closeModals, disabled } = this.props;
     const { username, firstName, lastName } = this.state;
     const helperTextUsername = (username.isValid) ? '' : 'Please use latin letters, digits and . -'
     const helperTextFirstName = (firstName.isValid) ? '' : 'Please use letters, digits, space and . -'
@@ -119,6 +119,7 @@ class UserInfo extends React.Component {
             type="submit"
             variant="text"
             color="primary"
+            disabled={disabled}
           >
             Save
           </Button>

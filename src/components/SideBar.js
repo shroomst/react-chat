@@ -47,7 +47,7 @@ class SideBar extends React.Component {
   }
 
   render() {
-    const { classes, chats, addChatHandler, changeSelectedChatsFilter, selectedChatsFilter, activeChat } = this.props;
+    const { classes, chats, addChatHandler, changeSelectedChatsFilter, selectedChatsFilter, activeChat, isConnected } = this.props;
     const { searchValue } = this.state;
   
     return (
@@ -59,7 +59,8 @@ class SideBar extends React.Component {
       >
         <SearchChat searchHandler={this.searchHandler}/>
         <Divider/>
-        <ChatList 
+        <ChatList
+          disabled={!isConnected}
           chats={this.searchChatList(chats, searchValue)}
           activeChat={activeChat}
         />
@@ -67,7 +68,10 @@ class SideBar extends React.Component {
           handleChange={changeSelectedChatsFilter} 
           selectedChatsFilter={selectedChatsFilter}
         />
-        <AddChatButton addHandler={addChatHandler}/> 
+        <AddChatButton 
+          disabled={!isConnected}
+          addHandler={addChatHandler}
+        /> 
       </Drawer>
     );
   }

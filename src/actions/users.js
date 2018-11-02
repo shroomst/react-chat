@@ -3,7 +3,13 @@ import * as types from '../constants/users';
 
 export function saveUserInfo(username, firstName, lastName) {
   return (dispatch, getState) => {
-    const { token } = getState().auth;
+    const state = getState();
+    const { token } = state.auth;
+    const { isFetching } = state.services;
+
+    if (isFetching.saveUserInfo) {
+      return Promise.resolve()
+    }
 
     dispatch({
       type: types.SAVE_USER_INFO_REQUEST,
@@ -11,17 +17,17 @@ export function saveUserInfo(username, firstName, lastName) {
     });
 
     return callApi('/users/me', token, { method: 'POST' }, { data: { username, firstName, lastName} })
-      .then(data => {
+      .then(json => {
         dispatch({
           type: types.SAVE_USER_INFO_SUCCESS,
-          payload: data
+          payload: json,
         });
 
-        return data;
+        return json;
       })
       .catch(reason => dispatch({
         type: types.SAVE_USER_INFO_FAILURE,
-        payload: reason
+        payload: reason,
       }))
   }
 }

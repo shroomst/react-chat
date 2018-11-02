@@ -89,13 +89,13 @@ class RegisterForm extends React.Component {
   render () {
     const { classes, errorMessage } = this.props;
     const { username, password, confirmPassword, errorPasswordMessage } = this.state;
-
+    console.log('EM:'+errorMessage);
     return (
       <React.Fragment>
         <Avatar className={classes.avatar}>
           <RegisterIcon/>
         </Avatar>
-        <Typography variant="headline">Register</Typography>
+        <Typography variant="h5">Register</Typography>
         <form className={classes.form} onSubmit={this.handleSubmit}>
           <TextField 
             required

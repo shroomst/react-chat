@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import * as fromChats from '../reducers/chats'; // SELECTORS
 import * as fromState from '../reducers';       // SELECTORS
 
-import { fetchAllChats, fetchMyChats, setActiveChat, addChat, deleteChat, joinChat, leaveChat, sendMessage } from '../actions/chats'
-import { saveUserInfo } from '../actions/users'
+import { fetchAllChats, fetchMyChats, setActiveChat, addChat, deleteChat, joinChat, leaveChat } from '../actions/chats';
+import { saveUserInfo } from '../actions/users';
+import { sendMessage, mountChat, unmountChat, socketConnect } from '../actions/socket';
 import { logout } from '../actions/auth';
 import ChatPage from '../components/ChatPage';
 
@@ -25,7 +26,8 @@ const mapStateToProps = state => {
       isChatMember: fromState.isChatMember(state, activeChat)
     },
     messages: state.messages,
-    logoutMessage: state.auth.logoutMessage,
+    error: state.services.errors.chat,
+    isConnected: state.services.isConnected,
   };
 };
 
@@ -35,11 +37,14 @@ const mapDispatchToProps = dispatch => bindActionCreators ({
   deleteChat,
   joinChat,
   leaveChat,
-  sendMessage,
   saveUserInfo,
   fetchAllChats,
   fetchMyChats,
   setActiveChat,
+  sendMessage,
+  mountChat,
+  unmountChat,
+  socketConnect
 }, dispatch);
 
 export default connect (

@@ -25,7 +25,7 @@ const styles = theme => ({
   },
 });
 
-const ApplicationBar = ({ classes , logout, activeUser, userInfoHandler, leaveChat, deleteChat, activeChat })=>  (
+const ApplicationBar = ({ classes , logout, activeUser, userInfoHandler, leaveChat, deleteChat, activeChat, isConnected })=>  (
   <AppBar className={classes.appBar}>
     <Toolbar>
       { !!activeChat 
@@ -40,6 +40,7 @@ const ApplicationBar = ({ classes , logout, activeUser, userInfoHandler, leaveCh
                 activeUser={activeUser}
                 onLeaveClick={() => leaveChat(activeChat._id)}
                 onDeleteClick={() => deleteChat(activeChat._id)}
+                disabled={!isConnected}
               />
             </Typography>
           </React.Fragment>
@@ -54,6 +55,7 @@ const ApplicationBar = ({ classes , logout, activeUser, userInfoHandler, leaveCh
         onLogout={logout} 
         username={!!activeUser ? activeUser.username : ''}
         userInfoHandler={userInfoHandler}
+        disabled={!isConnected}
       />
     </Toolbar>
   </AppBar>

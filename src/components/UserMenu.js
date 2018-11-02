@@ -37,14 +37,14 @@ class UserMenu extends React.Component {
     const { userInfoHandler } = this.props;
     this.handleClose();
     userInfoHandler('userInfoModal');
-  }
+  };
 
   handleLogout = (event) => {
     const { onLogout } = this.props;
     event.preventDefault();
     onLogout();
     this.handleClose();
-  }
+  };
 
   render() {
     const { anchorEl } = this.state;
@@ -52,9 +52,7 @@ class UserMenu extends React.Component {
 
     return (
       <div className={classes.profileMenu}>
-        <div className={classes.loggedUser}>
-          {username}
-        </div>
+        <div className={classes.loggedUser}>{username}</div>
         <IconButton
           aria-owns={anchorEl ? 'menu-user' : null}
           aria-haspopup="true"

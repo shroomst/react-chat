@@ -86,18 +86,23 @@ export function sendMessage(content) {
       dispatch(lostSocketConnection());
     }
 
-    socket.emit('send-message', {
-      chatId: activeId,
-      content,
-    }, () => { // on success callback
-      dispatch({
-        type: types.SEND_MESSAGE,
-        payload: {
-          chatId: activeId,
-          content,
-        },
-      });
-    });
+    socket.emit(
+      'send-message',
+      {
+        chatId: activeId,
+        content,
+      },
+      () => {
+        // on success callback
+        dispatch({
+          type: types.SEND_MESSAGE,
+          payload: {
+            chatId: activeId,
+            content,
+          },
+        });
+      },
+    );
     return Promise.resolve();
   };
 }

@@ -22,16 +22,11 @@ const ChatEvent = ({
 }) => (
   <div className={classes.messageWrapper}>
     <div className={classes.statusMessage}>
-      <Typography
-        variant="subtitle1"
-        style={{ display: 'inline', color }}
-      >
+      <Typography variant="subtitle1" style={{ display: 'inline', color }}>
         {senderName}
       </Typography>
-      { content }
-      <Typography variant="caption">
-        { <Moment fromNow>{senderCreatedAt}</Moment> }
-      </Typography>
+      {content}
+      <Typography variant="caption">{<Moment fromNow>{senderCreatedAt}</Moment>}</Typography>
     </div>
   </div>
 );

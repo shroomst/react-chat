@@ -32,7 +32,7 @@ class SignInForm extends React.Component {
       value: '',
       isValid: true,
     },
-  }
+  };
 
   handleInputChange = (event) => {
     event.persist();
@@ -43,14 +43,14 @@ class SignInForm extends React.Component {
         value,
       },
     }));
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { username, password } = this.state;
     const { onSubmit } = this.props;
     onSubmit(username.value, password.value);
-  }
+  };
 
   render() {
     const { classes, errorMessage } = this.props;

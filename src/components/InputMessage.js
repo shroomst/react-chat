@@ -19,19 +19,18 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
   },
-
 });
 
 class InputMessage extends React.Component {
   state = {
     value: '',
-  }
+  };
 
   handleValueChange = (event) => {
     this.setState({
       value: event.target.value,
     });
-  }
+  };
 
   handleKeyPress = (event) => {
     const { sendMessage } = this.props;
@@ -42,7 +41,7 @@ class InputMessage extends React.Component {
         value: '',
       });
     }
-  }
+  };
 
   render() {
     const {
@@ -54,29 +53,26 @@ class InputMessage extends React.Component {
     return (
       <div className={classes.messageInputWrapper}>
         <Paper className={classes.inputMessage} elevation={5}>
-          {showJoinButton
-            ? (
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={onJoinButtonClick}
-                disabled={disabled}
-              >
-                Join Chat
-              </Button>
-            )
-            : (
-              <Input
-                placeholder="Type your message..."
-                fullWidth
-                value={value}
-                onChange={this.handleValueChange}
-                onKeyPress={this.handleKeyPress}
-                disabled={disabled}
-              />
-            )
-             }
+          {showJoinButton ? (
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={onJoinButtonClick}
+              disabled={disabled}
+            >
+              Join Chat
+            </Button>
+          ) : (
+            <Input
+              placeholder="Type your message..."
+              fullWidth
+              value={value}
+              onChange={this.handleValueChange}
+              onKeyPress={this.handleKeyPress}
+              disabled={disabled}
+            />
+          )}
         </Paper>
       </div>
     );

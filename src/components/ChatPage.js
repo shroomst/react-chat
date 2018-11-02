@@ -42,7 +42,7 @@ class ChatPage extends React.Component {
     modalAddChatIsOpen: false,
     modalUserInfoIsOpen: false,
     selectedChatsFilter: 'my',
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -61,10 +61,7 @@ class ChatPage extends React.Component {
       mountChat,
     } = this.props;
 
-    Promise.all([
-      fetchAllChats(),
-      fetchMyChats(),
-    ])
+    Promise.all([fetchAllChats(), fetchMyChats()])
       .then(() => {
         socketConnect();
       })
@@ -79,7 +76,10 @@ class ChatPage extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      match: { params }, setActiveChat, mountChat, unmountChat,
+      match: { params },
+      setActiveChat,
+      mountChat,
+      unmountChat,
     } = this.props;
     const { params: nextParams } = nextProps.match;
     if (nextParams.chatId && params.chatId !== nextParams.chatId) {
@@ -113,7 +113,7 @@ class ChatPage extends React.Component {
   changeSelectedChatsFilter(event, value) {
     this.setState(prevState => ({
       ...prevState,
-      selectedChatsFilter: (value === 'my') ? 'my' : 'all',
+      selectedChatsFilter: value === 'my' ? 'my' : 'all',
     }));
   }
 
@@ -155,33 +155,21 @@ class ChatPage extends React.Component {
           userInfoHandler={this.handleModal}
           isConnected={isConnected}
         />
-        <Modal
-          isOpen={modalAddChatIsOpen}
-          style={modalStyles}
-          onRequestClose={this.closeModal}
-        >
-          <AddChat
-            onSubmit={addChat}
-            closeModals={this.closeModal}
-            disabled={!isConnected}
-          />
+        <Modal isOpen={modalAddChatIsOpen} style={modalStyles} onRequestClose={this.closeModal}>
+          <AddChat onSubmit={addChat} closeModals={this.closeModal} disabled={!isConnected} />
         </Modal>
-        <Modal
-          isOpen={modalUserInfoIsOpen}
-          style={modalStyles}
-          onRequestClose={this.closeModal}
-        >
+        <Modal isOpen={modalUserInfoIsOpen} style={modalStyles} onRequestClose={this.closeModal}>
           <UserInfo
             onSubmit={saveUserInfo}
             closeModals={this.closeModal}
-            username={(activeUser) ? activeUser.username : ''}
-            firstName={(activeUser) ? activeUser.firstName : ''}
-            lastName={(activeUser) ? activeUser.lastName : ''}
+            username={activeUser ? activeUser.username : ''}
+            firstName={activeUser ? activeUser.firstName : ''}
+            lastName={activeUser ? activeUser.lastName : ''}
             disabled={!isConnected}
           />
         </Modal>
         <SideBar
-          chats={(selectedChatsFilter === 'my') ? chats.my : chats.all}
+          chats={selectedChatsFilter === 'my' ? chats.my : chats.all}
           activeChat={chats.active}
           addChatHandler={this.handleModal}
           changeSelectedChatsFilter={this.changeSelectedChatsFilter}

@@ -26,37 +26,41 @@ const styles = theme => ({
 });
 
 const ApplicationBar = ({
-  classes, logout, activeUser, userInfoHandler, leaveChat, deleteChat, activeChat, isConnected,
+  classes,
+  logout,
+  activeUser,
+  userInfoHandler,
+  leaveChat,
+  deleteChat,
+  activeChat,
+  isConnected,
 }) => (
   <AppBar className={classes.appBar}>
     <Toolbar>
-      { activeChat
-        ? (
-          <React.Fragment>
-            {/* eslint-disable no-underscore-dangle */}
-            <Avatar colorFrom={activeChat._id}>
-              {/* eslint-enable no-underscore-dangle */}
-              {activeChat.title}
-            </Avatar>
-            <Typography variant="h5" color="inherit" noWrap className={classes.title}>
-              {activeChat.title}
-              <ChatMenu
-                activeUser={activeUser}
-                /* eslint-disable no-underscore-dangle */
-                onLeaveClick={() => leaveChat(activeChat._id)}
-                onDeleteClick={() => deleteChat(activeChat._id)}
-                /* eslint-enable no-underscore-dangle */
-                disabled={!isConnected}
-              />
-            </Typography>
-          </React.Fragment>
-        )
-        : (
+      {activeChat ? (
+        <React.Fragment>
+          {/* eslint-disable no-underscore-dangle */}
+          <Avatar colorFrom={activeChat._id}>
+            {/* eslint-enable no-underscore-dangle */}
+            {activeChat.title}
+          </Avatar>
           <Typography variant="h5" color="inherit" noWrap className={classes.title}>
-            Chat on React
+            {activeChat.title}
+            <ChatMenu
+              activeUser={activeUser}
+              /* eslint-disable no-underscore-dangle */
+              onLeaveClick={() => leaveChat(activeChat._id)}
+              onDeleteClick={() => deleteChat(activeChat._id)}
+              /* eslint-enable no-underscore-dangle */
+              disabled={!isConnected}
+            />
           </Typography>
-        )
-      }
+        </React.Fragment>
+      ) : (
+        <Typography variant="h5" color="inherit" noWrap className={classes.title}>
+          Chat on React
+        </Typography>
+      )}
       <UserMenu
         onLogout={logout}
         username={activeUser ? activeUser.username : ''}

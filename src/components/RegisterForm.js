@@ -39,7 +39,7 @@ class RegisterForm extends React.Component {
     errorPasswordMessage: {
       value: '',
     },
-  }
+  };
 
   handleInputChange = (event) => {
     event.persist();
@@ -50,12 +50,12 @@ class RegisterForm extends React.Component {
         value,
       },
     }));
-  }
+  };
 
   validate = () => {
     const { password, confirmPassword } = this.state;
     const isValid = password.value === confirmPassword.value;
-    const errorPasswordMessage = (isValid) ? '' : 'Passwords do not match';
+    const errorPasswordMessage = isValid ? '' : 'Passwords do not match';
 
     this.setState(prevState => ({
       password: {
@@ -75,7 +75,7 @@ class RegisterForm extends React.Component {
     }));
 
     return isValid;
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
@@ -85,7 +85,7 @@ class RegisterForm extends React.Component {
       return;
     }
     onSubmit(username.value, password.value);
-  }
+  };
 
   render() {
     const { classes, errorMessage } = this.props;

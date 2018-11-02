@@ -72,25 +72,21 @@ to see your own chats.
       );
     }
 
-    return messages && messages.length
-      ? (
-        <div className={classes.messagesWrapper} ref={this.scrollRef}>
-          { messages.map(message => (
-            <ChatMessage
-              {...message}
-              /* eslint-disable no-underscore-dangle */
-              key={message._id}
-              /* eslint-enable no-underscore-dangle */
-              activeUser={activeUser}
-            />
-          ))}
-        </div>
-      )
-      : (
-        <Typography variant="h4">
-          No messages yet...
-        </Typography>
-      );
+    return messages && messages.length ? (
+      <div className={classes.messagesWrapper} ref={this.scrollRef}>
+        {messages.map(message => (
+          <ChatMessage
+            {...message}
+            /* eslint-disable no-underscore-dangle */
+            key={message._id}
+            /* eslint-enable no-underscore-dangle */
+            activeUser={activeUser}
+          />
+        ))}
+      </div>
+    ) : (
+      <Typography variant="h4">No messages yet...</Typography>
+    );
   }
 }
 

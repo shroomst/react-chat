@@ -45,14 +45,17 @@ class WelcomePage extends React.Component {
 
   render() {
     const {
-      classes, signup, login, isAuthenticated, errorSignInMessage, errorRegisterMessage,
+      classes,
+      signup,
+      login,
+      isAuthenticated,
+      errorSignInMessage,
+      errorRegisterMessage,
     } = this.props;
     const { activeTab } = this.state;
 
     if (isAuthenticated) {
-      return (
-        <Redirect to="/chat" />
-      );
+      return <Redirect to="/chat" />;
     }
 
     return (
@@ -61,11 +64,7 @@ class WelcomePage extends React.Component {
         <div>
           <CssBaseline />
           <AppBar position="static">
-            <Tabs
-              value={activeTab}
-              onChange={this.handleChange}
-              fullWidth
-            >
+            <Tabs value={activeTab} onChange={this.handleChange} fullWidth>
               <Tab icon={<LockIcon />} label="Sign In" />
               <Tab icon={<Register />} label="Register" />
             </Tabs>
@@ -74,7 +73,9 @@ class WelcomePage extends React.Component {
             <Paper className={classes.paper}>
               {activeTab === 0 && <SignInForm onSubmit={login} errorMessage={errorSignInMessage} />}
               {/* eslint-disable max-len */}
-              {activeTab === 1 && <RegisterForm onSubmit={signup} errorMessage={errorRegisterMessage} />}
+              {activeTab === 1 && (
+                <RegisterForm onSubmit={signup} errorMessage={errorRegisterMessage} />
+              )}
               {/* eslint-enable max-len */}
             </Paper>
           </main>

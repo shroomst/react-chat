@@ -87,24 +87,23 @@ export function fetchChat(chatId) {
 }
 
 export function setActiveChat(chatId) {
-  return dispatch => dispatch(fetchChat(chatId))
-    .then((data) => {
-      if (!data) {
-        dispatch(redirect('/chat'));
+  return dispatch => dispatch(fetchChat(chatId)).then((data) => {
+    if (!data) {
+      dispatch(redirect('/chat'));
 
-        return dispatch({
-          type: types.UNSET_ACTIVE_CHAT,
-        });
-      }
-
-      dispatch({
-        type: types.SET_ACTIVE_CHAT,
-        payload: data,
+      return dispatch({
+        type: types.UNSET_ACTIVE_CHAT,
       });
-      /* eslint-disable no-underscore-dangle */
-      return dispatch(redirect(`/chat/${data.chat._id}`));
-      /* eslint-enable no-underscore-dangle */
+    }
+
+    dispatch({
+      type: types.SET_ACTIVE_CHAT,
+      payload: data,
     });
+    /* eslint-disable no-underscore-dangle */
+    return dispatch(redirect(`/chat/${data.chat._id}`));
+    /* eslint-enable no-underscore-dangle */
+  });
 }
 
 export function deleteChat(chatId) {

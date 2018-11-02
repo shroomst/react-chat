@@ -20,7 +20,7 @@ class SearchChat extends React.Component {
     const { value } = event.target;
     const { searchHandler } = this.props;
     searchHandler(value);
-  }
+  };
 
   render() {
     const { classes } = this.props;

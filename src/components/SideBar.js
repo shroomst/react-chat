@@ -22,7 +22,7 @@ const styles = {
 class SideBar extends React.Component {
   state = {
     searchValue: '',
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -38,16 +38,19 @@ class SideBar extends React.Component {
   searchChatList(searchValue) {
     const { chats } = this.props;
     return chats
-      .filter(chat => chat.title
-        .toLowerCase()
-        .includes(searchValue.toLowerCase()))
+      .filter(chat => chat.title.toLowerCase().includes(searchValue.toLowerCase()))
       .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
   }
 
   render() {
     const {
       /* eslint-disable max-len */
-      classes, addChatHandler, changeSelectedChatsFilter, selectedChatsFilter, activeChat, isConnected,
+      classes,
+      addChatHandler,
+      changeSelectedChatsFilter,
+      selectedChatsFilter,
+      activeChat,
+      isConnected,
       /* eslint-enable max-len */
     } = this.props;
     const { searchValue } = this.state;
@@ -70,10 +73,7 @@ class SideBar extends React.Component {
           handleChange={changeSelectedChatsFilter}
           selectedChatsFilter={selectedChatsFilter}
         />
-        <AddChatButton
-          disabled={!isConnected}
-          addHandler={addChatHandler}
-        />
+        <AddChatButton disabled={!isConnected} addHandler={addChatHandler} />
       </Drawer>
     );
   }

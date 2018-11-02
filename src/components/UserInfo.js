@@ -26,7 +26,7 @@ class UserInfo extends React.Component {
       value: '',
       isValid: true,
     },
-  }
+  };
 
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -45,7 +45,7 @@ class UserInfo extends React.Component {
         value,
       },
     }));
-  }
+  };
 
   handleUserInfoSubmit = (event) => {
     event.preventDefault();
@@ -56,14 +56,14 @@ class UserInfo extends React.Component {
     }
     onSubmit(username.value, firstName.value, lastName.value);
     closeModals();
-  }
+  };
 
   validate(event) {
     event.persist();
     const { username, firstName, lastName } = this.state;
-    const isValidUsername = !!(/^[A-Za-z0-9-.]+$/.test(username.value));
-    const isValidFirstName = !!(/(^([A-Za-z0-9а-яА-Я- ]+$)|^$)/.test(firstName.value));
-    const isValidLastName = !!(/(^([A-Za-z0-9а-яА-Я- ]+$)|^$)/.test(lastName.value));
+    const isValidUsername = !!/^[A-Za-z0-9-.]+$/.test(username.value);
+    const isValidFirstName = !!/(^([A-Za-z0-9а-яА-Я- ]+$)|^$)/.test(firstName.value);
+    const isValidLastName = !!/(^([A-Za-z0-9а-яА-Я- ]+$)|^$)/.test(lastName.value);
 
     this.setState({
       username: { ...username, isValid: isValidUsername },
@@ -76,9 +76,11 @@ class UserInfo extends React.Component {
   render() {
     const { classes, closeModals, disabled } = this.props;
     const { username, firstName, lastName } = this.state;
-    const helperTextUsername = (username.isValid) ? '' : 'Please use latin letters, digits and . -';
-    const helperTextFirstName = (firstName.isValid) ? '' : 'Please use letters, digits, space and . -';
-    const helperTextLastName = (lastName.isValid) ? '' : 'Please use letters, digits, space and . -';
+    const helperTextUsername = username.isValid ? '' : 'Please use latin letters, digits and . -';
+    const helperTextFirstName = firstName.isValid
+      ? ''
+      : 'Please use letters, digits, space and . -';
+    const helperTextLastName = lastName.isValid ? '' : 'Please use letters, digits, space and . -';
 
     return (
       <React.Fragment>
@@ -124,20 +126,10 @@ class UserInfo extends React.Component {
             onChange={this.handleInputChange}
             helperText={helperTextLastName}
           />
-          <Button
-            type="submit"
-            variant="text"
-            color="primary"
-            disabled={disabled}
-          >
+          <Button type="submit" variant="text" color="primary" disabled={disabled}>
             Save
           </Button>
-          <Button
-            variant="text"
-            color="secondary"
-            style={{ marginLeft: 30 }}
-            onClick={closeModals}
-          >
+          <Button variant="text" color="secondary" style={{ marginLeft: 30 }} onClick={closeModals}>
             Close
           </Button>
         </form>

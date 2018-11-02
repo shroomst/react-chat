@@ -33,7 +33,6 @@ const styles = theme => ({
   },
 });
 
-
 const ChatMessage = ({
   classes, sender, content, activeUser, createdAt, statusMessage,
 }) => {
@@ -65,7 +64,9 @@ const ChatMessage = ({
 
   return (
     /* eslint-disable max-len */
-    <div className={classnames(classes.messageWrapper, isMessageFromMe && classes.ownMessageWrapper)}>
+    <div
+      className={classnames(classes.messageWrapper, isMessageFromMe && classes.ownMessageWrapper)}
+    >
       {!isMessageFromMe && userAvatar}
       <Paper className={classnames(classes.message, isMessageFromMe && classes.ownMessage)}>
         <Typography
@@ -75,9 +76,7 @@ const ChatMessage = ({
         >
           {senderName}
         </Typography>
-        <Typography variant="body1">
-          {content}
-        </Typography>
+        <Typography variant="body1">{content}</Typography>
         <Typography variant="caption" style={{ color: 'grey' }}>
           <Moment fromNow>{createdAt}</Moment>
         </Typography>

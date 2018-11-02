@@ -10,6 +10,4 @@ module.exports = compose (
 */
 const { override, useEslintRc } = require('customize-cra');
 
-module.exports = override(
-  useEslintRc(),
-);
+module.exports = override(useEslintRc());

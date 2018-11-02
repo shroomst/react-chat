@@ -19,23 +19,26 @@ const styles = {
 };
 
 const Chat = ({
-  classes, messages, activeChat, activeUser, joinChat, sendMessage, isConnected,
+  classes,
+  messages,
+  activeChat,
+  activeUser,
+  joinChat,
+  sendMessage,
+  isConnected,
 }) => (
   <main className={classes.chatLayout}>
-    <ChatMessagesList
-      messages={messages}
-      activeUser={activeUser}
-    />
+    <ChatMessagesList messages={messages} activeUser={activeUser} />
     {activeChat && (
-    <InputMessage
-      sendMessage={sendMessage}
-      showJoinButton={!activeUser.isChatMember}
-      /* eslint-disable no-underscore-dangle */
-      onJoinButtonClick={() => joinChat(activeChat._id)}
-      /* eslint-enable no-underscore-dangle */
-      activeUser={activeUser}
-      disabled={!isConnected}
-    />
+      <InputMessage
+        sendMessage={sendMessage}
+        showJoinButton={!activeUser.isChatMember}
+        /* eslint-disable no-underscore-dangle */
+        onJoinButtonClick={() => joinChat(activeChat._id)}
+        /* eslint-enable no-underscore-dangle */
+        activeUser={activeUser}
+        disabled={!isConnected}
+      />
     )}
   </main>
 );

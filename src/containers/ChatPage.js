@@ -5,7 +5,13 @@ import * as fromChats from '../reducers/chats'; // SELECTORS
 import * as fromState from '../reducers'; // SELECTORS
 
 import {
-  fetchAllChats, fetchMyChats, setActiveChat, addChat, deleteChat, joinChat, leaveChat,
+  fetchAllChats,
+  fetchMyChats,
+  setActiveChat,
+  addChat,
+  deleteChat,
+  joinChat,
+  leaveChat,
 } from '../actions/chats';
 import { saveUserInfo } from '../actions/users';
 import {
@@ -35,21 +41,24 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  logout,
-  addChat,
-  deleteChat,
-  joinChat,
-  leaveChat,
-  saveUserInfo,
-  fetchAllChats,
-  fetchMyChats,
-  setActiveChat,
-  sendMessage,
-  mountChat,
-  unmountChat,
-  socketConnect,
-}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    logout,
+    addChat,
+    deleteChat,
+    joinChat,
+    leaveChat,
+    saveUserInfo,
+    fetchAllChats,
+    fetchMyChats,
+    setActiveChat,
+    sendMessage,
+    mountChat,
+    unmountChat,
+    socketConnect,
+  },
+  dispatch,
+);
 
 export default connect(
   mapStateToProps,

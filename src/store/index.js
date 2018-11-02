@@ -10,10 +10,7 @@ export default function configureStore() {
   if (process.env.NODE_ENV === 'production') {
     return createStore(
       connectRouter(history)(rootReducer),
-      applyMiddleware(
-        routerMiddleware(history),
-        thunkMiddleware,
-      ),
+      applyMiddleware(routerMiddleware(history), thunkMiddleware),
     );
   }
   /* eslint-disable no-underscore-dangle */
@@ -24,13 +21,7 @@ export default function configureStore() {
 
   const store = createStore(
     connectRouter(history)(rootReducer),
-    composeEnhancers(
-      applyMiddleware(
-        routerMiddleware(history),
-        thunkMiddleware,
-        loggerMiddleware,
-      ),
-    ),
+    composeEnhancers(applyMiddleware(routerMiddleware(history), thunkMiddleware, loggerMiddleware)),
   );
 
   if (module.hot) {

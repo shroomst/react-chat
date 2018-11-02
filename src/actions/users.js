@@ -17,7 +17,12 @@ export function saveUserInfo(username, firstName, lastName) {
       payload: { username, firstName, lastName },
     });
 
-    return callApi('/users/me', token, { method: 'POST' }, { data: { username, firstName, lastName } })
+    return callApi(
+      '/users/me',
+      token,
+      { method: 'POST' },
+      { data: { username, firstName, lastName } },
+    )
       .then((json) => {
         dispatch({
           type: types.SAVE_USER_INFO_SUCCESS,

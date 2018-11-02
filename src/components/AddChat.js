@@ -18,7 +18,7 @@ class AddChat extends React.Component {
       value: '',
       isValid: true,
     },
-  }
+  };
 
   handleInputChange = (event) => {
     event.persist();
@@ -29,7 +29,7 @@ class AddChat extends React.Component {
         value,
       },
     }));
-  }
+  };
 
   handleAddChatSubmit = (event) => {
     event.preventDefault();
@@ -40,11 +40,13 @@ class AddChat extends React.Component {
     }
     onSubmit(chatName.value);
     closeModals();
-  }
+  };
 
   validate() {
     const { chatName } = this.state;
-    const isValid = !!((/^[A-Za-z0-9а-яА-Я -.?!]+$/.test(chatName.value)) && (chatName.value.length > 0));
+    const isValid = !!(
+      /^[A-Za-z0-9а-яА-Я -.?!]+$/.test(chatName.value) && chatName.value.length > 0
+    );
 
     this.setState(prevState => ({
       chatName: {
@@ -60,7 +62,7 @@ class AddChat extends React.Component {
   render() {
     const { classes, disabled } = this.props;
     const { chatName } = this.state;
-    const helperText = (chatName.isValid) ? '' : 'Please use letters, digits, space and . - ? !';
+    const helperText = chatName.isValid ? '' : 'Please use letters, digits, space and . - ? !';
 
     return (
       <React.Fragment>
@@ -80,13 +82,7 @@ class AddChat extends React.Component {
             onChange={this.handleInputChange}
             helperText={helperText}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="text"
-            color="primary"
-            disabled={disabled}
-          >
+          <Button type="submit" fullWidth variant="text" color="primary" disabled={disabled}>
             Create
           </Button>
         </form>

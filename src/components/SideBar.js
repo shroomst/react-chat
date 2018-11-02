@@ -4,10 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 
-import ChatList from './ChatList'
-import BottomNav from './BottomNav'
-import AddChatButton from './AddChatButton'
-import SearchChat from './SearchChat'
+import ChatList from './ChatList';
+import BottomNav from './BottomNav';
+import AddChatButton from './AddChatButton';
+import SearchChat from './SearchChat';
 
 const drawerWidth = 320;
 
@@ -21,7 +21,7 @@ const styles = {
 
 class SideBar extends React.Component {
   state = {
-    searchValue: ''
+    searchValue: '',
   }
 
   constructor(props) {
@@ -31,25 +31,27 @@ class SideBar extends React.Component {
 
   searchHandler(value) {
     this.setState({
-      searchValue: value
-    })
+      searchValue: value,
+    });
   }
 
-  searchChatList(chats, searchValue) {
+  searchChatList(searchValue) {
+    const { chats } = this.props;
     return chats
       .filter(chat => chat.title
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
-      )
-      .sort((one, two) =>
-          one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1
-      );
+        .toLowerCase()
+        .includes(searchValue.toLowerCase()))
+      .sort((one, two) => (one.title.toLowerCase() <= two.title.toLowerCase() ? -1 : 1));
   }
 
   render() {
-    const { classes, chats, addChatHandler, changeSelectedChatsFilter, selectedChatsFilter, activeChat, isConnected } = this.props;
+    const {
+      /* eslint-disable max-len */
+      classes, addChatHandler, changeSelectedChatsFilter, selectedChatsFilter, activeChat, isConnected,
+      /* eslint-enable max-len */
+    } = this.props;
     const { searchValue } = this.state;
-  
+
     return (
       <Drawer
         variant="permanent"
@@ -57,24 +59,24 @@ class SideBar extends React.Component {
           paper: classes.drawerPaper,
         }}
       >
-        <SearchChat searchHandler={this.searchHandler}/>
-        <Divider/>
+        <SearchChat searchHandler={this.searchHandler} />
+        <Divider />
         <ChatList
           disabled={!isConnected}
-          chats={this.searchChatList(chats, searchValue)}
+          chats={this.searchChatList(searchValue)}
           activeChat={activeChat}
         />
-        <BottomNav 
-          handleChange={changeSelectedChatsFilter} 
+        <BottomNav
+          handleChange={changeSelectedChatsFilter}
           selectedChatsFilter={selectedChatsFilter}
         />
-        <AddChatButton 
+        <AddChatButton
           disabled={!isConnected}
           addHandler={addChatHandler}
-        /> 
+        />
       </Drawer>
     );
   }
 }
 
-export default withStyles (styles)(SideBar);
+export default withStyles(styles)(SideBar);

@@ -13,10 +13,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   signup,
   login,
-  receiveAuth
+  receiveAuth,
 }, dispatch);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-) (WelcomePage);
+  mapDispatchToProps,
+)(WelcomePage);

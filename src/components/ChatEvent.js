@@ -7,9 +7,9 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   statusMessage: {
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
   },
-  messageWrapper : {
+  messageWrapper: {
     display: 'flex',
     padding: theme.spacing.unit * 2,
     justifyContent: 'flex-start',
@@ -17,21 +17,23 @@ const styles = theme => ({
   },
 });
 
-const ChatEvent = ({ classes, senderName, color, senderCreatedAt, content }) => (
+const ChatEvent = ({
+  classes, senderName, color, senderCreatedAt, content,
+}) => (
   <div className={classes.messageWrapper}>
     <div className={classes.statusMessage}>
-      <Typography 
-        variant="subtitle1" 
-        style={{ display: 'inline', color: color }}
+      <Typography
+        variant="subtitle1"
+        style={{ display: 'inline', color }}
       >
         {senderName}
-      </Typography> 
-        { content }
-      <Typography variant="caption" /*component="span"*/>
+      </Typography>
+      { content }
+      <Typography variant="caption">
         { <Moment fromNow>{senderCreatedAt}</Moment> }
       </Typography>
     </div>
-  </div>  
+  </div>
 );
 
 export default withStyles(styles)(ChatEvent);

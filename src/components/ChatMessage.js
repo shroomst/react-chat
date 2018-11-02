@@ -12,55 +12,64 @@ import getSenderName from '../utils/sender-name';
 import getColor from '../utils/color-from';
 
 const styles = theme => ({
-  ownMessage : {
+  ownMessage: {
     marginRight: theme.spacing.unit * 2,
-    backgroundColor: "#e6dcff",
+    backgroundColor: '#e6dcff',
   },
-  message : {
-    maxWidth: "70%",
-    minWidth: "10%",
+  message: {
+    maxWidth: '70%',
+    minWidth: '10%',
     padding: theme.spacing.unit * 2,
     marginLeft: theme.spacing.unit * 2,
   },
-  messageWrapper : {
+  messageWrapper: {
     display: 'flex',
     padding: theme.spacing.unit * 2,
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  ownMessageWrapper : {
+  ownMessageWrapper: {
     justifyContent: 'flex-end',
   },
 });
 
 
-const ChatMessage = ({ classes, sender, content, activeUser, createdAt, statusMessage }) => {
+const ChatMessage = ({
+  classes, sender, content, activeUser, createdAt, statusMessage,
+}) => {
+  /* eslint-disable no-underscore-dangle */
   const isMessageFromMe = sender._id === activeUser._id;
+  /* eslint-enable no-underscore-dangle */
   const senderName = getSenderName(sender);
 
   if (statusMessage) {
     return (
-      <ChatEvent 
+      <ChatEvent
         senderName={senderName}
+        /* eslint-disable no-underscore-dangle */
         color={getColor(sender._id)}
+        /* eslint-enable no-underscore-dangle */
         senderCreatedAt={createdAt}
         content={content}
       />
     );
   }
-  
+
   const userAvatar = (
+    /* eslint-disable no-underscore-dangle */
     <Avatar colorFrom={sender._id}>
+      {/* eslint-disable no-underscore-dangle */}
       {senderName}
     </Avatar>
   );
 
   return (
-    <div className={classnames(classes.messageWrapper, isMessageFromMe && classes.ownMessageWrapper)}>  
-      {!isMessageFromMe && userAvatar}  
+    /* eslint-disable max-len */
+    <div className={classnames(classes.messageWrapper, isMessageFromMe && classes.ownMessageWrapper)}>
+      {!isMessageFromMe && userAvatar}
       <Paper className={classnames(classes.message, isMessageFromMe && classes.ownMessage)}>
-        <Typography 
-          variant="body2" 
+        <Typography
+          variant="body2"
           className={classes.author}
           style={{ color: getColor(sender._id) }}
         >
@@ -73,9 +82,9 @@ const ChatMessage = ({ classes, sender, content, activeUser, createdAt, statusMe
           <Moment fromNow>{createdAt}</Moment>
         </Typography>
       </Paper>
-      {isMessageFromMe && userAvatar}    
+      {isMessageFromMe && userAvatar}
     </div>
   );
-}
+};
 
 export default withStyles(styles)(ChatMessage);

@@ -8,16 +8,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const styles = {
   profileMenu: {
-    display: "flex",
+    display: 'flex',
     justifyContent: 'flex-end',
-    width: "100%",
+    width: '100%',
   },
   loggedUser: {
     marginTop: 16,
   },
   menuBar: {
-    top:50,
-  }
+    top: 50,
+  },
 };
 
 class UserMenu extends React.Component {
@@ -25,7 +25,7 @@ class UserMenu extends React.Component {
     anchorEl: null,
   };
 
-  handleMenu = event => {
+  handleMenu = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -34,13 +34,15 @@ class UserMenu extends React.Component {
   };
 
   handleEditProfile = () => {
+    const { userInfoHandler } = this.props;
     this.handleClose();
-    this.props.userInfoHandler('userInfoModal');
+    userInfoHandler('userInfoModal');
   }
 
-  handleLogout = (event)=> {
+  handleLogout = (event) => {
+    const { onLogout } = this.props;
     event.preventDefault();
-    this.props.onLogout();
+    onLogout();
     this.handleClose();
   }
 
@@ -54,13 +56,13 @@ class UserMenu extends React.Component {
           {username}
         </div>
         <IconButton
-          aria-owns={!!anchorEl ? 'menu-user' : null}
+          aria-owns={anchorEl ? 'menu-user' : null}
           aria-haspopup="true"
           onClick={this.handleMenu}
           color="inherit"
           disabled={disabled}
         >
-          <AccountCircle/>
+          <AccountCircle />
         </IconButton>
         <Menu
           id="menu-user"

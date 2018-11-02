@@ -14,19 +14,19 @@ const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <App />
   </Provider>,
-  rootEl
+  rootEl,
 );
 
 if (module.hot) {
   module.hot.accept('./components/App', () => {
     ReactDOM.render(
       <Provider store={store}>
-        <App/>
+        <App />
       </Provider>,
-      rootEl
+      rootEl,
     );
-  })
+  });
 }
 registerServiceWorker();

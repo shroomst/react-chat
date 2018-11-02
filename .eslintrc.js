@@ -1,6 +1,12 @@
 module.exports = {
-    "extends": "react-app",
-    "rules" : {
-      "react-app/jsx-a11y/href-no-hash": "off"
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "env": {
+      browser: true,
+    },
+    "rules": {
+      "react/jsx-filename-extension": 0,
+      "import/no-named-as-default": 0,
+      "react/prop-types": 0
     }
-  }
+};

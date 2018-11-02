@@ -22,17 +22,17 @@ const styles = theme => ({
 
 const modalStyles = {
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.6)'
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
-  content : {
-    top         : '50%',
-    left        : '50%',
-    right       : 'auto',
-    bottom      : 'auto',
-    marginRight : '-50%',
-    width       :  '30%',
-    transform   : 'translate(-50%, -50%)',
-  }
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    width: '30%',
+    transform: 'translate(-50%, -50%)',
+  },
 };
 
 Modal.setAppElement('#root');
@@ -51,55 +51,21 @@ class ChatPage extends React.Component {
     this.changeSelectedChatsFilter = this.changeSelectedChatsFilter.bind(this);
   }
 
-  handleModal(modal) {
-    switch (modal) {
-      case "chatModal":
-        this.setState((prevState)=> ({ 
-          ...prevState,
-          modalUserInfoIsOpen: false,
-          modalAddChatIsOpen: !this.state.modalAddChatIsOpen,
-        }));
-        break;
-      case "userInfoModal":
-        this.setState((prevState)=> ({ 
-          ...prevState,
-          modalAddChatIsOpen: false,
-          modalUserInfoIsOpen: !this.state.modalUserInfoIsOpen,
-        }));
-        break;
-      default:
-      }
-  }
-
-  changeSelectedChatsFilter(event, value) {
-    this.setState((prevState)=> ({ 
-      ...prevState,
-      selectedChatsFilter: (value === 'my') ? 'my' : 'all'
-    }));
-  }
-
-  closeModal() {
-    this.setState((prevState)=> ({ 
-      ...prevState,
-      modalUserInfoIsOpen: false,
-      modalAddChatIsOpen: false 
-    }));
-  }
-
   componentDidMount() {
-    const { match, 
-            fetchAllChats, 
-            fetchMyChats, 
-            setActiveChat, 
-            socketConnect, 
-            mountChat 
-          } = this.props;
-    
+    const {
+      match,
+      fetchAllChats,
+      fetchMyChats,
+      setActiveChat,
+      socketConnect,
+      mountChat,
+    } = this.props;
+
     Promise.all([
       fetchAllChats(),
       fetchMyChats(),
     ])
-      .then (()=> {
+      .then(() => {
         socketConnect();
       })
       .then(() => {
@@ -112,8 +78,9 @@ class ChatPage extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    
-    const { match: { params }, setActiveChat, mountChat, unmountChat } = this.props;
+    const {
+      match: { params }, setActiveChat, mountChat, unmountChat,
+    } = this.props;
     const { params: nextParams } = nextProps.match;
     if (nextParams.chatId && params.chatId !== nextParams.chatId) {
       setActiveChat(nextParams.chatId);
@@ -122,28 +89,65 @@ class ChatPage extends React.Component {
     }
   }
 
+  handleModal(modal) {
+    const { modalAddChatIsOpen, modalUserInfoIsOpen } = this.state;
+    switch (modal) {
+      case 'chatModal':
+        this.setState(prevState => ({
+          ...prevState,
+          modalUserInfoIsOpen: false,
+          modalAddChatIsOpen: !modalAddChatIsOpen,
+        }));
+        break;
+      case 'userInfoModal':
+        this.setState(prevState => ({
+          ...prevState,
+          modalAddChatIsOpen: false,
+          modalUserInfoIsOpen: !modalUserInfoIsOpen,
+        }));
+        break;
+      default:
+    }
+  }
+
+  changeSelectedChatsFilter(event, value) {
+    this.setState(prevState => ({
+      ...prevState,
+      selectedChatsFilter: (value === 'my') ? 'my' : 'all',
+    }));
+  }
+
+  closeModal() {
+    this.setState(prevState => ({
+      ...prevState,
+      modalUserInfoIsOpen: false,
+      modalAddChatIsOpen: false,
+    }));
+  }
+
   render() {
-    const { classes, 
-            logout, 
-            chats, 
-            addChat, 
-            saveUserInfo, 
-            messages, 
-            activeUser, 
-            sendMessage, 
-            joinChat, 
-            leaveChat, 
-            deleteChat,
-            error,
-            isConnected,
-           } = this.props;
+    const {
+      classes,
+      logout,
+      chats,
+      addChat,
+      saveUserInfo,
+      messages,
+      activeUser,
+      sendMessage,
+      joinChat,
+      leaveChat,
+      deleteChat,
+      error,
+      isConnected,
+    } = this.props;
     const { modalAddChatIsOpen, modalUserInfoIsOpen } = this.state;
     const { selectedChatsFilter } = this.state;
 
     return (
       <div className={classes.chatPage}>
-        <ApplicationBar 
-          logout={logout} 
+        <ApplicationBar
+          logout={logout}
           activeUser={activeUser}
           activeChat={chats.active}
           leaveChat={leaveChat}
@@ -152,31 +156,31 @@ class ChatPage extends React.Component {
           isConnected={isConnected}
         />
         <Modal
-          isOpen={modalAddChatIsOpen} 
+          isOpen={modalAddChatIsOpen}
           style={modalStyles}
           onRequestClose={this.closeModal}
         >
-          <AddChat 
-            onSubmit={addChat} 
+          <AddChat
+            onSubmit={addChat}
             closeModals={this.closeModal}
             disabled={!isConnected}
           />
         </Modal>
         <Modal
-          isOpen={modalUserInfoIsOpen} 
+          isOpen={modalUserInfoIsOpen}
           style={modalStyles}
           onRequestClose={this.closeModal}
         >
-          <UserInfo 
-            onSubmit={saveUserInfo} 
+          <UserInfo
+            onSubmit={saveUserInfo}
             closeModals={this.closeModal}
-            username={(!!activeUser) ? activeUser.username: ''}
-            firstName={(!!activeUser) ? activeUser.firstName: ''}
-            lastName={(!!activeUser) ? activeUser.lastName: ''}
+            username={(activeUser) ? activeUser.username : ''}
+            firstName={(activeUser) ? activeUser.firstName : ''}
+            lastName={(activeUser) ? activeUser.lastName : ''}
             disabled={!isConnected}
           />
         </Modal>
-        <SideBar 
+        <SideBar
           chats={(selectedChatsFilter === 'my') ? chats.my : chats.all}
           activeChat={chats.active}
           addChatHandler={this.handleModal}
@@ -184,15 +188,15 @@ class ChatPage extends React.Component {
           selectedChatsFilter={selectedChatsFilter}
           isConnected={isConnected}
         />
-        <Chat 
-          messages={messages} 
+        <Chat
+          messages={messages}
           sendMessage={sendMessage}
           joinChat={joinChat}
           activeChat={chats.active}
           activeUser={activeUser}
           isConnected={isConnected}
         />
-        <ErrorMessage error={error}/>
+        <ErrorMessage error={error} />
       </div>
     );
   }

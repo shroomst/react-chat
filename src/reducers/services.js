@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import * as types from '../constants'
+import * as types from '../constants';
 
 const initialState = {
   isFetching: {
@@ -23,9 +23,9 @@ const initialState = {
     chat: null,
   },
   isConnected: false,
-}
+};
 
-export const isFetching = ( state = initialState.isFetching, action ) => {
+export const isFetching = (state = initialState.isFetching, action) => {
   switch (action.type) {
     case types.SIGNUP_REQUEST:
       return { ...state, signup: true };
@@ -53,7 +53,7 @@ export const isFetching = ( state = initialState.isFetching, action ) => {
       return { ...state, socket: true };
     case types.SAVE_USER_INFO_REQUEST:
       return { ...state, saveUserInfo: true };
-    
+
     case types.SIGNUP_SUCCESS:
     case types.SIGNUP_FAILURE:
       return { ...state, signup: false };
@@ -92,28 +92,28 @@ export const isFetching = ( state = initialState.isFetching, action ) => {
       return { ...state, socket: false };
     case types.SAVE_USER_INFO_SUCCESS:
     case types.SAVE_USER_INFO_FAILURE:
-      return { ...state, saveUserInfo: false }; 
+      return { ...state, saveUserInfo: false };
     default:
       return state;
   }
-}
+};
 
 export const errors = (state = initialState.errors, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case types.SIGNUP_FAILURE:
       return { ...state, signup: action.payload.message };
     case types.SIGNUP_SUCCESS:
       return { ...state, signup: null };
-    case types.RECEIVE_AUTH_FAILURE: 
-      return { ...state, auth: 'Session expired. Please login again.'};
+    case types.RECEIVE_AUTH_FAILURE:
+      return { ...state, auth: 'Session expired. Please login again.' };
     case types.LOGIN_FAILURE:
     case types.LOGOUT_FAILURE:
       return { ...state, auth: action.payload.message };
-    case types.RECEIVE_AUTH_SUCCESS:  
+    case types.RECEIVE_AUTH_SUCCESS:
     case types.LOGIN_SUCCESS:
     case types.LOGOUT_SUCCESS:
       return { ...state, auth: null };
-     
+
     case types.FETCH_ALL_CHATS_FAILURE:
     case types.FETCH_MY_CHATS_FAILURE:
     case types.FETCH_CHAT_FAILURE:
@@ -123,7 +123,7 @@ export const errors = (state = initialState.errors, action) => {
     case types.DELETE_CHAT_FAILURE:
     case types.SOCKET_CONNECTION_FAILURE:
     case types.SAVE_USER_INFO_FAILURE:
-      return { ...state, chat: action.payload }; 
+      return { ...state, chat: action.payload };
     case types.FETCH_ALL_CHATS_SUCCESS:
     case types.FETCH_MY_CHATS_SUCCESS:
     case types.FETCH_CHAT_SUCCESS:
@@ -133,11 +133,11 @@ export const errors = (state = initialState.errors, action) => {
     case types.DELETE_CHAT_SUCCESS:
     case types.SOCKET_CONNECTION_SUCCESS:
     case types.SAVE_USER_INFO_SUCCESS:
-      return { ...state, chat: null }; 
+      return { ...state, chat: null };
     default:
       return state;
   }
-}
+};
 
 export const isConnected = (state = initialState.isConnected, action) => {
   switch (action.type) {
@@ -149,9 +149,9 @@ export const isConnected = (state = initialState.isConnected, action) => {
     default:
       return state;
   }
-}
+};
 
-export default combineReducers({ 
+export default combineReducers({
   isFetching,
   errors,
   isConnected,

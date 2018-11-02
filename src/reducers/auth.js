@@ -18,7 +18,7 @@ export default function auth(state = initialState, action) {
         isAuthenticated: true,
         user: action.payload.user,
         token: action.payload.token,
-      }
+      };
     case types.SIGNUP_FAILURE:
     case types.LOGIN_FAILURE:
     case types.LOGOUT_SUCCESS:
@@ -28,18 +28,18 @@ export default function auth(state = initialState, action) {
         isAuthenticated: false,
         user: null,
         token: '',
-      }
+      };
     case types.RECEIVE_AUTH_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
         user: action.payload.user,
-      }
+      };
     case userTypes.SAVE_USER_INFO_SUCCESS:
       return {
         ...state,
         user: action.payload.user,
-      }
+      };
     default:
       return state;
   }

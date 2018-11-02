@@ -9,23 +9,27 @@ import ChatListItem from './ChatListItem';
 const styles = {
   chatList: {
     height: 'calc(100vh - 56px - 64px)',
-    overflowY: 'auto', 
+    overflowY: 'auto',
   },
   noChats: {
     textAlign: 'center',
-  }
+  },
 };
 
-const ChatList = ({ classes, chats, activeChat, disabled }) => (
+const ChatList = ({
+  classes, chats, activeChat, disabled,
+}) => (
   <List className={classes.chatList}>
-    {chats && chats.length 
+    {chats && chats.length
       ? (
-        chats.map((chat) => (
-          <ChatListItem 
+        chats.map(chat => (
+          <ChatListItem
             disabled={disabled}
-            key={chat._id} 
+            /* eslint-disable no-underscore-dangle */
+            key={chat._id}
             active={activeChat && (activeChat._id === chat._id)}
             chatId={chat._id}
+            /* eslint-enable no-underscore-dangle */
             {...chat}
           />
         ))
@@ -39,4 +43,4 @@ const ChatList = ({ classes, chats, activeChat, disabled }) => (
   </List>
 );
 
-export default withStyles (styles)(ChatList);
+export default withStyles(styles)(ChatList);

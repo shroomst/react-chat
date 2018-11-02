@@ -7,20 +7,27 @@ import { receiveAuth } from '../actions/auth';
 
 class PrivateRoute extends React.Component {
   componentDidMount() {
+    /* eslint-disable react/destructuring-assignment */
     this.props.receiveAuth();
+    /* eslint-enable react/destructuring-assignment */
   }
 
   render() {
     const { component: Component, isAuthenticated, ...rest } = this.props;
 
     return (
-      <Route {...rest} render={ nextProps => (
-        isAuthenticated 
-          ? ( <Component {...nextProps} /> )
-          : ( <Redirect to={{
-            pathname: '/welcome',
-            state: { from: nextProps.location }
-          }} />)
+      <Route
+        {...rest}
+        render={nextProps => (
+          isAuthenticated
+            ? (<Component {...nextProps} />)
+            : (
+              <Redirect to={{
+                pathname: '/welcome',
+                state: { from: nextProps.location },
+              }}
+              />
+            )
         )}
       />
     );
@@ -31,11 +38,11 @@ const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators ({
-  receiveAuth
+const mapDispatchToProps = dispatch => bindActionCreators({
+  receiveAuth,
 }, dispatch);
 
 export default withRouter(connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PrivateRoute));

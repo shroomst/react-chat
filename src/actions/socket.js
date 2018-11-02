@@ -6,7 +6,7 @@ export function lostSocketConnection() {
   return {
     type: types.SOCKET_CONNECTION_LOST,
     payload: new Error('Connection lost. Trying to connect...'),
-  }
+  };
 }
 
 let socket = null;
@@ -18,7 +18,7 @@ export function socketConnect() {
     const { isFetching } = state.services;
 
     if (isFetching.socket) {
-      return Promise.resolve()
+      return Promise.resolve();
     }
 
     dispatch({
@@ -26,55 +26,56 @@ export function socketConnect() {
     });
 
     socket = SocketIoClient('ws://localhost:8000/', {
-      query: { token }
+      query: { token },
     });
 
-    socket.on('connect', ()=> {
+    socket.on('connect', () => {
       dispatch({
         type: types.SOCKET_CONNECTION_SUCCESS,
       });
     });
 
-    socket.on('error', (error)=> {
+    socket.on('error', (error) => {
       dispatch({
         type: types.SOCKET_CONNECTION_FAILURE,
         payload: new Error(`Connection error: ${error}`),
       });
     });
 
-    socket.on('connect_error', ()=> {
+    socket.on('connect_error', () => {
       dispatch({
         type: types.SOCKET_CONNECTION_FAILURE,
         payload: new Error('Connection lost :`( Connecting...'),
-      })
+      });
     });
 
-    socket.on('new-message', ( message )=> {
+    socket.on('new-message', (message) => {
       dispatch({
         type: types.RECEIVE_MESSAGE,
         payload: message,
       });
     });
 
-    socket.on('new-chat', ({ chat })=> {
+    socket.on('new-chat', ({ chat }) => {
       dispatch({
         type: types.RECEIVE_NEW_CHAT,
         payload: { chat },
       });
     });
 
-    socket.on('deleted-chat', ({ chat })=> {
+    socket.on('deleted-chat', ({ chat }) => {
       const { activeId } = getState().chats;
 
       dispatch({
         type: types.RECEIVE_DELETED_CHAT,
         payload: { chat },
       });
-
-      if (activeId === chat._id)
-        dispatch(redirect('/chat')); 
+      /* eslint-disable no-underscore-dangle */
+      if (activeId === chat._id) dispatch(redirect('/chat'));
+      /* eslint-enable no-underscore-dangle */
     });
-  }
+    return Promise.resolve();
+  };
 }
 
 export function sendMessage(content) {
@@ -94,38 +95,39 @@ export function sendMessage(content) {
         payload: {
           chatId: activeId,
           content,
-        }
+        },
       });
     });
-  }
+    return Promise.resolve();
+  };
 }
 
 export function mountChat(chatId) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if (!socket) {
       dispatch(lostSocketConnection());
     }
-    
+
     socket.emit('mount-chat', chatId);
 
     dispatch({
       type: types.MOUNT_CHAT,
       payload: chatId,
     });
-  }
+  };
 }
 
 export function unmountChat(chatId) {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     if (!socket) {
       dispatch(lostSocketConnection());
     }
-    
+
     socket.emit('unmount-chat', chatId);
 
     dispatch({
       type: types.UNMOUNT_CHAT,
       payload: chatId,
-    })
-  }
+    });
+  };
 }

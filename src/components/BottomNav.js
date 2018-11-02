@@ -8,17 +8,17 @@ import ExploreIcon from '@material-ui/icons/Explore';
 
 const styles = {
   bottomNav: {
-    position: "fixed",
+    position: 'fixed',
     bottom: 0,
     width: 320,
-  }
+  },
 };
 
 const BottomNav = ({ classes, handleChange, selectedChatsFilter }) => (
   <div className={classes.bottomNav}>
     <BottomNavigation showLabels onChange={handleChange} value={selectedChatsFilter}>
-      <BottomNavigationAction value="my" label="MyChats" icon={<RestoreIcon />}/>
-      <BottomNavigationAction value="all" label="Explore" icon={<ExploreIcon />}/>
+      <BottomNavigationAction value="my" label="MyChats" icon={<RestoreIcon />} />
+      <BottomNavigationAction value="all" label="Explore" icon={<ExploreIcon />} />
     </BottomNavigation>
   </div>
 );

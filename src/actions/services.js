@@ -1,12 +1,13 @@
 import history from '../utils/history';
-import * as types from '../constants'
+import * as types from '../constants';
 
-export default function redirect(to) {
+// eslint-disable-next-line
+export function redirect(to) {
   return (dispatch) => {
     history.push({ to });
     dispatch({
       type: types.REDIRECT,
       payload: { to },
-    })
-  }
+    });
+  };
 }

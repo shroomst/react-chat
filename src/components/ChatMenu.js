@@ -6,11 +6,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles ={
+const styles = {
   userMenu: {
     top: 50,
-    left:400 // временный костыль, пока не разберусь в верстке.
-  }
+    left: 400, // временный костыль, пока не разберусь в верстке.
+  },
 };
 
 class ChatMenu extends React.Component {
@@ -19,7 +19,7 @@ class ChatMenu extends React.Component {
   };
 
   handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget});
+    this.setState({ anchorEl: event.currentTarget });
   }
 
   handleClose = () => {
@@ -27,13 +27,15 @@ class ChatMenu extends React.Component {
   };
 
   handleLeaveClick = () => {
+    const { onLeaveClick } = this.props;
     this.handleClose();
-    this.props.onLeaveClick();
+    onLeaveClick();
   }
 
   handleDeleteClick = () => {
+    const { onDeleteClick } = this.props;
     this.handleClose();
-    this.props.onDeleteClick();
+    onDeleteClick();
   }
 
   render() {
@@ -53,7 +55,7 @@ class ChatMenu extends React.Component {
           disabled={disabled}
           color="inherit"
         >
-          <MoreIcon/>
+          <MoreIcon />
         </IconButton>
         <Menu
           id="menu-chat"

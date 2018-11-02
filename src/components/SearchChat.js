@@ -5,7 +5,7 @@ import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
   drawerHeader: {
-    ...theme.mixins.toolbar,   
+    ...theme.mixins.toolbar,
     paddingLeft: theme.spacing.unit * 3,
     paddingRight: theme.spacing.unit * 3,
   },
@@ -15,19 +15,18 @@ const styles = theme => ({
 });
 
 class SearchChat extends React.Component {
-
   inputHandler = (event) => {
     event.persist();
     const { value } = event.target;
-    const{ searchHandler } = this.props;
+    const { searchHandler } = this.props;
     searchHandler(value);
   }
 
-  render () {
-    const{ classes } = this.props;
+  render() {
+    const { classes } = this.props;
     return (
       <div className={classes.drawerHeader}>
-        <Input 
+        <Input
           placeholder="Search chats..."
           className={classes.searchInput}
           fullWidth
@@ -39,5 +38,3 @@ class SearchChat extends React.Component {
 }
 
 export default withStyles(styles)(SearchChat);
-
- 

@@ -28,7 +28,7 @@ class ChatMenu extends React.Component {
     }).isRequired,
     onLeaveClick: PropTypes.func.isRequired,
     onDeleteClick: PropTypes.func.isRequired,
-  }
+  };
 
   state = {
     anchorEl: null,

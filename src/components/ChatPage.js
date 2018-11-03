@@ -53,26 +53,32 @@ class ChatPage extends React.Component {
     logout: PropTypes.func.isRequired,
     chats: PropTypes.PropTypes.shape({
       active: PropTypes.object,
-      my: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string,
-      })),
-      all: PropTypes.arrayOf(PropTypes.shape({
-        _id: PropTypes.string,
-      })),
+      my: PropTypes.arrayOf(
+        PropTypes.shape({
+          _id: PropTypes.string,
+        }),
+      ),
+      all: PropTypes.arrayOf(
+        PropTypes.shape({
+          _id: PropTypes.string,
+        }),
+      ),
     }).isRequired,
     addChat: PropTypes.func.isRequired,
     saveUserInfo: PropTypes.func.isRequired,
-    messages: PropTypes.arrayOf(PropTypes.shape({
-      chatId: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      sender: PropTypes.shape({
-        firstName: PropTypes.string,
-        lastName: PropTypes.string,
-        username: PropTypes.string.isRequired,
-        _id: PropTypes.string.isRequired,
-      }).isRequired,
-      createdAt: PropTypes.string.isRequired,
-    })).isRequired,
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        chatId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        sender: PropTypes.shape({
+          firstName: PropTypes.string,
+          lastName: PropTypes.string,
+          username: PropTypes.string.isRequired,
+          _id: PropTypes.string.isRequired,
+        }).isRequired,
+        createdAt: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
     activeUser: PropTypes.shape({
       firstName: PropTypes.string,
       lastName: PropTypes.string,
@@ -91,7 +97,7 @@ class ChatPage extends React.Component {
 
   static defaultProps = {
     error: null,
-  }
+  };
 
   state = {
     modalAddChatIsOpen: false,

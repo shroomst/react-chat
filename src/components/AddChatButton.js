@@ -19,7 +19,7 @@ class AddChatButton extends React.Component {
     addHandler: PropTypes.func.isRequired,
     disabled: PropTypes.bool.isRequired,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  }
+  };
 
   constructor(props) {
     super(props);

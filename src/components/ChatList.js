@@ -25,7 +25,7 @@ const ChatList = ({
       chats.map(chat => (
         <ChatListItem
           disabled={disabled}
-           /* eslint-disable no-underscore-dangle */
+          /* eslint-disable no-underscore-dangle */
           key={chat._id}
           active={activeChat && activeChat._id === chat._id}
           chatId={chat._id}
@@ -43,25 +43,29 @@ const ChatList = ({
 
 ChatList.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  chats: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    creator: PropTypes.shape({
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      username: PropTypes.string.isRequired,
+  chats: PropTypes.arrayOf(
+    PropTypes.shape({
       _id: PropTypes.string.isRequired,
-    }).isRequired,
-    members: PropTypes.arrayOf(PropTypes.shape({
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      username: PropTypes.string.isRequired,
-      _id: PropTypes.string.isRequired,
-    })).isRequired,
-    title: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string.isRequired,
-    _v: PropTypes.number,
-  })),
+      createdAt: PropTypes.string.isRequired,
+      creator: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        username: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
+      }).isRequired,
+      members: PropTypes.arrayOf(
+        PropTypes.shape({
+          firstName: PropTypes.string,
+          lastName: PropTypes.string,
+          username: PropTypes.string.isRequired,
+          _id: PropTypes.string.isRequired,
+        }),
+      ).isRequired,
+      title: PropTypes.string.isRequired,
+      updatedAt: PropTypes.string.isRequired,
+      _v: PropTypes.number,
+    }),
+  ),
   activeChat: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,

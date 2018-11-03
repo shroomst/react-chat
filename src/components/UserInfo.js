@@ -43,7 +43,7 @@ class UserInfo extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { username, firstName, lastName } = this.state;
-    console.log('Props', nextProps.activeUser);
+    // почему то запускается только после закрытия модалки...
     this.setState({
       username: { ...username, value: nextProps.activeUser.username },
       firstName: { ...firstName, value: nextProps.activeUser.firstName },

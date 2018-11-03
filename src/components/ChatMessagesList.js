@@ -23,17 +23,19 @@ const styles = theme => ({
 
 class ChatMessagesList extends React.Component {
   static propTypes = {
-    messages: PropTypes.arrayOf(PropTypes.shape({
-      chatId: PropTypes.string.isRequired,
-      content: PropTypes.string.isRequired,
-      sender: PropTypes.shape({
-        firstName: PropTypes.string,
-        lastName: PropTypes.string,
-        username: PropTypes.string.isRequired,
-        _id: PropTypes.string.isRequired,
-      }).isRequired,
-      createdAt: PropTypes.string.isRequired,
-    })).isRequired,
+    messages: PropTypes.arrayOf(
+      PropTypes.shape({
+        chatId: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        sender: PropTypes.shape({
+          firstName: PropTypes.string,
+          lastName: PropTypes.string,
+          username: PropTypes.string.isRequired,
+          _id: PropTypes.string.isRequired,
+        }).isRequired,
+        createdAt: PropTypes.string.isRequired,
+      }),
+    ).isRequired,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     match: PropTypes.shape({
       params: PropTypes.object.isRequired,
@@ -46,7 +48,7 @@ class ChatMessagesList extends React.Component {
       isCreator: PropTypes.bool.isRequired,
       isChatMember: PropTypes.bool.isRequired,
     }).isRequired,
-  }
+  };
 
   constructor() {
     super();

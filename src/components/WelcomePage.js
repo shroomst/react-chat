@@ -48,7 +48,7 @@ class WelcomePage extends React.Component {
   static defaultProps = {
     errorSignInMessage: null,
     errorRegisterMessage: null,
-  }
+  };
 
   state = {
     activeTab: 0,

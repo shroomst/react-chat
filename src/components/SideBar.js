@@ -22,9 +22,11 @@ const styles = {
 
 class SideBar extends React.Component {
   static propTypes = {
-    chats: PropTypes.arrayOf(PropTypes.shape({
-      _id: PropTypes.string,
-    })).isRequired,
+    chats: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string,
+      }),
+    ).isRequired,
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     addChatHandler: PropTypes.func.isRequired,
     changeSelectedChatsFilter: PropTypes.func.isRequired,

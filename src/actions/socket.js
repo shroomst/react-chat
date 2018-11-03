@@ -71,7 +71,7 @@ export function socketConnect() {
         payload: { chat },
       });
       /* eslint-disable no-underscore-dangle */
-      if (activeId === chat._id) dispatch(redirect('/chat'));
+      if (activeId === chat._id) dispatch(redirect('chat'));
       /* eslint-enable no-underscore-dangle */
     });
     return Promise.resolve();

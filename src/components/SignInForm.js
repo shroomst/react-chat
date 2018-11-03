@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -23,6 +24,16 @@ const styles = theme => ({
 });
 
 class SignInForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    errorMessage: PropTypes.string,
+  };
+
+  static defaultProps = {
+    errorMessage: '',
+  };
+
   state = {
     username: {
       value: '',

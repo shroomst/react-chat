@@ -81,7 +81,7 @@ export function fetchChat(chatId) {
           type: types.FETCH_CHAT_FAILURE,
           payload: reason,
         });
-        dispatch(redirect('/chat'));
+        dispatch(redirect('chat'));
       });
   };
 }
@@ -89,7 +89,7 @@ export function fetchChat(chatId) {
 export function setActiveChat(chatId) {
   return dispatch => dispatch(fetchChat(chatId)).then((data) => {
     if (!data) {
-      dispatch(redirect('/chat'));
+      dispatch(redirect('chat'));
 
       return dispatch({
         type: types.UNSET_ACTIVE_CHAT,
@@ -101,7 +101,7 @@ export function setActiveChat(chatId) {
       payload: data,
     });
     /* eslint-disable no-underscore-dangle */
-    return dispatch(redirect(`/chat/${data.chat._id}`));
+    return dispatch(redirect(`chat/${data.chat._id}`));
     /* eslint-enable no-underscore-dangle */
   });
 }
@@ -133,7 +133,7 @@ export function deleteChat(chatId) {
           payload: data,
         });
 
-        dispatch(redirect('/chat'));
+        dispatch(redirect('chat'));
 
         return data;
       })
@@ -166,7 +166,7 @@ export function addChat(title) {
           payload: { chat },
         });
         /* eslint-disable no-underscore-dangle */
-        dispatch(redirect(`/chat/${chat._id}`));
+        dispatch(redirect(`chat/${chat._id}`));
         /* eslint-enable no-underscore-dangle */
         return chat;
       })

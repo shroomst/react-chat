@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -20,6 +21,25 @@ const styles = {
 };
 
 class SideBar extends React.Component {
+  static propTypes = {
+    chats: PropTypes.arrayOf(PropTypes.shape({
+      _id: PropTypes.string,
+    })).isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    addChatHandler: PropTypes.func.isRequired,
+    changeSelectedChatsFilter: PropTypes.func.isRequired,
+    selectedChatsFilter: PropTypes.string.isRequired,
+    activeChat: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }),
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    activeChat: null,
+  };
+
   state = {
     searchValue: '',
   };
@@ -44,14 +64,12 @@ class SideBar extends React.Component {
 
   render() {
     const {
-      /* eslint-disable max-len */
       classes,
       addChatHandler,
       changeSelectedChatsFilter,
       selectedChatsFilter,
       activeChat,
       isConnected,
-      /* eslint-enable max-len */
     } = this.props;
     const { searchValue } = this.state;
 

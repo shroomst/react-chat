@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 
@@ -15,10 +16,10 @@ const styles = theme => ({
 });
 
 const ChatListItem = ({
-  classes, index, title, updatedAt, chatId, active, disabled,
+  classes, title, updatedAt, chatId, active, disabled,
 }) => (
   <ListItem
-    key={index}
+    key={chatId}
     button
     component={Link}
     to={`/chat/${chatId}`}
@@ -29,5 +30,18 @@ const ChatListItem = ({
     <ListItemText primary={title} secondary={<Moment fromNow>{updatedAt}</Moment>} />
   </ListItem>
 );
+
+ChatListItem.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  title: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
+  chatId: PropTypes.string.isRequired,
+  active: PropTypes.bool,
+  disabled: PropTypes.bool.isRequired,
+};
+
+ChatListItem.defaultProps = {
+  active: null,
+};
 
 export default withStyles(styles)(ChatListItem);

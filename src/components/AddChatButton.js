@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,6 +15,12 @@ const styles = theme => ({
 });
 
 class AddChatButton extends React.Component {
+  static propTypes = {
+    addHandler: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  }
+
   constructor(props) {
     super(props);
     this.clickHandler = this.clickHandler.bind(this);

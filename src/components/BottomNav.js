@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -22,5 +23,11 @@ const BottomNav = ({ classes, handleChange, selectedChatsFilter }) => (
     </BottomNavigation>
   </div>
 );
+
+BottomNav.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  selectedChatsFilter: PropTypes.string.isRequired,
+};
 
 export default withStyles(styles)(BottomNav);

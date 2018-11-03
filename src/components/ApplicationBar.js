@@ -1,6 +1,7 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -70,5 +71,30 @@ const ApplicationBar = ({
     </Toolbar>
   </AppBar>
 );
+
+ApplicationBar.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  logout: PropTypes.func.isRequired,
+  activeUser: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.string,
+    isMember: PropTypes.bool.isRequired,
+    isCreator: PropTypes.bool.isRequired,
+    isChatMember: PropTypes.bool.isRequired,
+  }).isRequired,
+  userInfoHandler: PropTypes.func.isRequired,
+  leaveChat: PropTypes.func.isRequired,
+  deleteChat: PropTypes.func.isRequired,
+  activeChat: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }),
+  isConnected: PropTypes.bool.isRequired,
+};
+
+ApplicationBar.defaultProps = {
+  activeChat: null,
+};
 
 export default withStyles(styles)(ApplicationBar);

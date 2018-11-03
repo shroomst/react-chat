@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -21,17 +22,43 @@ const styles = theme => ({
 });
 
 class ChatMessagesList extends React.Component {
+  static propTypes = {
+    messages: PropTypes.arrayOf(PropTypes.shape({
+      chatId: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      sender: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        username: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
+      }).isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })).isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    match: PropTypes.shape({
+      params: PropTypes.object.isRequired,
+    }).isRequired,
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool.isRequired,
+    }).isRequired,
+  }
+
+  constructor() {
+    super();
+    this.scrollRef = React.createRef();
+  }
+
   componentDidMount() {
     this.scrollDownHistory();
   }
 
   componentDidUpdate() {
     this.scrollDownHistory();
-  }
-
-  constuctor() {
-    super();
-    this.scrollRef = React.createRef();
   }
 
   scrollDownHistory() {

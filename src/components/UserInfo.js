@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -13,13 +14,25 @@ const styles = theme => ({
 });
 
 class UserInfo extends React.Component {
+  static propTypes = {
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+    }).isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    closeModals: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+  };
+
   state = {
     username: {
       value: '',
       isValid: true,
     },
     firstName: {
-      value: ';',
+      value: '',
       isValid: true,
     },
     lastName: {
@@ -29,10 +42,12 @@ class UserInfo extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    const { username, firstName, lastName } = this.state;
+    console.log('Props', nextProps.activeUser);
     this.setState({
-      username: nextProps.username,
-      firstName: nextProps.firstName,
-      lastName: nextProps.lastName,
+      username: { ...username, value: nextProps.activeUser.username },
+      firstName: { ...firstName, value: nextProps.activeUser.firstName },
+      lastName: { ...lastName, value: nextProps.activeUser.lastName },
     });
   }
 
@@ -81,7 +96,6 @@ class UserInfo extends React.Component {
       ? ''
       : 'Please use letters, digits, space and . -';
     const helperTextLastName = lastName.isValid ? '' : 'Please use letters, digits, space and . -';
-
     return (
       <React.Fragment>
         <h3>Edit user info</h3>

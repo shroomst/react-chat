@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Moment from 'react-moment';
 
@@ -84,6 +85,31 @@ const ChatMessage = ({
       {isMessageFromMe && userAvatar}
     </div>
   );
+};
+
+ChatMessage.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  sender: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+  }).isRequired,
+  content: PropTypes.string.isRequired,
+  activeUser: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    username: PropTypes.string,
+    isMember: PropTypes.bool.isRequired,
+    isCreator: PropTypes.bool.isRequired,
+    isChatMember: PropTypes.bool.isRequired,
+  }).isRequired,
+  createdAt: PropTypes.string.isRequired,
+  statusMessage: PropTypes.bool,
+};
+
+ChatMessage.defaultProps = {
+  statusMessage: false,
 };
 
 export default withStyles(styles)(ChatMessage);

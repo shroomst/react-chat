@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from 'react-modal';
+import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -38,6 +39,60 @@ const modalStyles = {
 Modal.setAppElement('#root');
 
 class ChatPage extends React.Component {
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.object.isRequired,
+    }).isRequired,
+    fetchAllChats: PropTypes.func.isRequired,
+    fetchMyChats: PropTypes.func.isRequired,
+    setActiveChat: PropTypes.func.isRequired,
+    socketConnect: PropTypes.func.isRequired,
+    mountChat: PropTypes.func.isRequired,
+    unmountChat: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    logout: PropTypes.func.isRequired,
+    chats: PropTypes.PropTypes.shape({
+      active: PropTypes.object,
+      my: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
+      })),
+      all: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
+      })),
+    }).isRequired,
+    addChat: PropTypes.func.isRequired,
+    saveUserInfo: PropTypes.func.isRequired,
+    messages: PropTypes.arrayOf(PropTypes.shape({
+      chatId: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
+      sender: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        username: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
+      }).isRequired,
+      createdAt: PropTypes.string.isRequired,
+    })).isRequired,
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool.isRequired,
+    }).isRequired,
+    sendMessage: PropTypes.func.isRequired,
+    joinChat: PropTypes.func.isRequired,
+    leaveChat: PropTypes.func.isRequired,
+    deleteChat: PropTypes.func.isRequired,
+    error: PropTypes.instanceOf(Error),
+    isConnected: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    error: null,
+  }
+
   state = {
     modalAddChatIsOpen: false,
     modalUserInfoIsOpen: false,
@@ -143,7 +198,6 @@ class ChatPage extends React.Component {
     } = this.props;
     const { modalAddChatIsOpen, modalUserInfoIsOpen } = this.state;
     const { selectedChatsFilter } = this.state;
-
     return (
       <div className={classes.chatPage}>
         <ApplicationBar
@@ -162,9 +216,7 @@ class ChatPage extends React.Component {
           <UserInfo
             onSubmit={saveUserInfo}
             closeModals={this.closeModal}
-            username={activeUser ? activeUser.username : ''}
-            firstName={activeUser ? activeUser.firstName : ''}
-            lastName={activeUser ? activeUser.lastName : ''}
+            activeUser={activeUser}
             disabled={!isConnected}
           />
         </Modal>

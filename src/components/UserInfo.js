@@ -43,7 +43,8 @@ class UserInfo extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { username, firstName, lastName } = this.state;
-    // почему то запускается только после закрытия модалки...
+    // TODO: почему то запускается только после закрытия модалки.
+    // как результат не получаю данные для предзаполнения
     this.setState({
       username: { ...username, value: nextProps.activeUser.username },
       firstName: { ...firstName, value: nextProps.activeUser.firstName },

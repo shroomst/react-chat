@@ -1,6 +1,7 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
+import {
+  Route, Switch, Redirect, Router,
+} from 'react-router-dom';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -18,13 +19,13 @@ const theme = createMuiTheme({
 
 const App = () => (
   <MuiThemeProvider theme={theme}>
-    <ConnectedRouter history={history}>
+    <Router history={history}>
       <Switch>
         <Route exact path="/(welcome)?" component={WelcomePage} />
         <PrivateRoute path="/chat/:chatId?" component={ChatPage} />
         <Redirect to="/" />
       </Switch>
-    </ConnectedRouter>
+    </Router>
   </MuiThemeProvider>
 );
 

@@ -1,6 +1,7 @@
-import callApi from '../utils/callapi'
+import callApi from '../utils/callapi';
 import * as types from '../constants/users';
 
+// eslint-disable-next-line
 export function saveUserInfo(username, firstName, lastName) {
   return (dispatch, getState) => {
     const state = getState();
@@ -8,16 +9,21 @@ export function saveUserInfo(username, firstName, lastName) {
     const { isFetching } = state.services;
 
     if (isFetching.saveUserInfo) {
-      return Promise.resolve()
+      return Promise.resolve();
     }
 
     dispatch({
       type: types.SAVE_USER_INFO_REQUEST,
-      payload: { username, firstName, lastName }
+      payload: { username, firstName, lastName },
     });
 
-    return callApi('/users/me', token, { method: 'POST' }, { data: { username, firstName, lastName} })
-      .then(json => {
+    return callApi(
+      '/users/me',
+      token,
+      { method: 'POST' },
+      { data: { username, firstName, lastName } },
+    )
+      .then((json) => {
         dispatch({
           type: types.SAVE_USER_INFO_SUCCESS,
           payload: json,
@@ -28,6 +34,6 @@ export function saveUserInfo(username, firstName, lastName) {
       .catch(reason => dispatch({
         type: types.SAVE_USER_INFO_FAILURE,
         payload: reason,
-      }))
-  }
+      }));
+  };
 }

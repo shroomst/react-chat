@@ -1,15 +1,16 @@
-import * as types from '../constants';
+/* eslint no-use-before-define: 0 */
 import { combineReducers } from 'redux';
+import * as types from '../constants';
 
 const initialState = {
   activeId: null,
   allIds: [],
   myIds: [],
   byIds: {},
-}
+};
 
 const activeId = (state = initialState.activeId, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case types.SET_ACTIVE_CHAT:
     case types.JOIN_CHAT_SUCCESS:
       return getChatId(action.payload.chat);
@@ -24,7 +25,7 @@ const activeId = (state = initialState.activeId, action) => {
 };
 
 const allIds = (state = initialState.allIds, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case types.FETCH_ALL_CHATS_SUCCESS:
       return action.payload.chats.map(getChatId);
     case types.ADD_CHAT_SUCCESS:
@@ -32,69 +33,71 @@ const allIds = (state = initialState.allIds, action) => {
       return state.concat(getChatId(action.payload.chat));
     case types.RECEIVE_DELETED_CHAT:
     case types.DELETE_CHAT_SUCCESS:
-      return state.filter(
-        chatId => chatId !== getChatId(action.payload.chat)
-      );
+      return state.filter(chatId => chatId !== getChatId(action.payload.chat));
     default:
       return state;
   }
 };
 
 const myIds = (state = initialState.myIds, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case types.FETCH_MY_CHATS_SUCCESS:
       return action.payload.chats.map(getChatId);
     case types.ADD_CHAT_SUCCESS:
     case types.JOIN_CHAT_SUCCESS:
       return state.concat(getChatId(action.payload.chat));
-    case types.DELETE_CHAT_SUCCESS:  
+    case types.DELETE_CHAT_SUCCESS:
     case types.LEAVE_CHAT_SUCCESS:
     case types.RECEIVE_DELETED_CHAT:
-      return state.filter(
-        chatId => chatId !== getChatId(action.payload.chat)
-      );
+      return state.filter(chatId => chatId !== getChatId(action.payload.chat));
     default:
       return state;
   }
 };
 
 const byIds = (state = initialState.byIds, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case types.FETCH_ALL_CHATS_SUCCESS:
     case types.FETCH_MY_CHATS_SUCCESS:
       return {
         ...state,
-        ...action.payload.chats.reduce((ids, chat) => ({
-          ...ids,
-          [chat._id]:chat
-        }), {}),
-      }
+        ...action.payload.chats.reduce(
+          (ids, chat) => ({
+            ...ids,
+            /* eslint-disable no-underscore-dangle */
+            [chat._id]: chat,
+            /* eslint-enable no-underscore-dangle */
+          }),
+          {},
+        ),
+      };
     case types.JOIN_CHAT_SUCCESS:
     case types.LEAVE_CHAT_SUCCESS:
     case types.ADD_CHAT_SUCCESS:
     case types.RECEIVE_NEW_CHAT:
       return {
         ...state,
-        [getChatId(action.payload.chat)]:action.payload.chat
-      }
+        [getChatId(action.payload.chat)]: action.payload.chat,
+      };
     case types.DELETE_CHAT_SUCCESS:
-    case types.RECEIVE_DELETED_CHAT:
-      //return state.filter(chat => chat.get('id') !== getChatId(action.payload.chat)); наверняка можно доработать фильтр, чтобы избежать кода ниже.
+    case types.RECEIVE_DELETED_CHAT: {
       const newState = { ...state };
-      delete newState[getChatId(action.payload.chat)]
+      delete newState[getChatId(action.payload.chat)];
       return newState;
+    }
     default:
       return state;
   }
 };
 
-export default combineReducers({ 
+export default combineReducers({
   activeId,
   allIds,
   myIds,
   byIds,
 });
-
-export const getChatId = (chat) => chat._id;
+/* eslint-disable no-underscore-dangle */
+export const getChatId = chat => chat._id;
+/* eslint-enable no-underscore-dangle */
 export const getByIds = (state, ids) => ids.map(id => getById(state, id));
 export const getById = (state, id) => state.byIds[id];

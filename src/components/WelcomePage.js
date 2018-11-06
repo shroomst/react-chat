@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
@@ -10,9 +11,9 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Register from '@material-ui/icons/Create';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import RegisterForm from './RegisterForm'
-import SignInForm from './SignInForm'
-import WelcomeHeaderBar from './WelcomeHeaderBar'
+import RegisterForm from './RegisterForm';
+import SignInForm from './SignInForm';
+import WelcomeHeaderBar from './WelcomeHeaderBar';
 
 const styles = theme => ({
   layout: {
@@ -35,6 +36,20 @@ const styles = theme => ({
 });
 
 class WelcomePage extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    signup: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool.isRequired,
+    errorSignInMessage: PropTypes.string,
+    errorRegisterMessage: PropTypes.string,
+  };
+
+  static defaultProps = {
+    errorSignInMessage: null,
+    errorRegisterMessage: null,
+  };
+
   state = {
     activeTab: 0,
   };
@@ -44,34 +59,39 @@ class WelcomePage extends React.Component {
   };
 
   render() {
-    const { classes, signup, login, isAuthenticated, errorSignInMessage, errorRegisterMessage } = this.props;
+    const {
+      classes,
+      signup,
+      login,
+      isAuthenticated,
+      errorSignInMessage,
+      errorRegisterMessage,
+    } = this.props;
     const { activeTab } = this.state;
 
     if (isAuthenticated) {
-      return (
-        <Redirect to="/chat"/>
-      );
+      return <Redirect to="/chat" />;
     }
 
     return (
       <React.Fragment>
-        <WelcomeHeaderBar/>
+        <WelcomeHeaderBar />
         <div>
-          <CssBaseline/>
+          <CssBaseline />
           <AppBar position="static">
-            <Tabs 
-              value={activeTab}
-              onChange={this.handleChange}
-              fullWidth
-            >
-              <Tab icon={<LockIcon/>} label="Sign In"/>
-              <Tab icon={<Register/>} label="Register"/>
+            <Tabs value={activeTab} onChange={this.handleChange} fullWidth>
+              <Tab icon={<LockIcon />} label="Sign In" />
+              <Tab icon={<Register />} label="Register" />
             </Tabs>
           </AppBar>
           <main className={classes.layout}>
             <Paper className={classes.paper}>
-              {activeTab === 0 && <SignInForm onSubmit={login} errorMessage={errorSignInMessage}/>}
-              {activeTab === 1 && <RegisterForm onSubmit={signup} errorMessage={errorRegisterMessage}/>}
+              {activeTab === 0 && <SignInForm onSubmit={login} errorMessage={errorSignInMessage} />}
+              {/* eslint-disable max-len */}
+              {activeTab === 1 && (
+                <RegisterForm onSubmit={signup} errorMessage={errorRegisterMessage} />
+              )}
+              {/* eslint-enable max-len */}
             </Paper>
           </main>
         </div>
@@ -80,4 +100,4 @@ class WelcomePage extends React.Component {
   }
 }
 
-export default withStyles (styles)(WelcomePage);
+export default withStyles(styles)(WelcomePage);

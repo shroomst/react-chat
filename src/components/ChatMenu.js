@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
@@ -6,35 +7,52 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles ={
+const styles = {
   userMenu: {
     top: 50,
-    left:400 // временный костыль, пока не разберусь в верстке.
-  }
+    left: 400, // временный костыль, пока не разберусь в верстке.
+  },
 };
 
 class ChatMenu extends React.Component {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    disabled: PropTypes.bool.isRequired,
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+      isMember: PropTypes.bool.isRequired,
+      isCreator: PropTypes.bool.isRequired,
+      isChatMember: PropTypes.bool.isRequired,
+    }).isRequired,
+    onLeaveClick: PropTypes.func.isRequired,
+    onDeleteClick: PropTypes.func.isRequired,
+  };
+
   state = {
     anchorEl: null,
   };
 
   handleClick = (event) => {
-    this.setState({ anchorEl: event.currentTarget});
-  }
+    this.setState({ anchorEl: event.currentTarget });
+  };
 
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
 
   handleLeaveClick = () => {
+    const { onLeaveClick } = this.props;
     this.handleClose();
-    this.props.onLeaveClick();
-  }
+    onLeaveClick();
+  };
 
   handleDeleteClick = () => {
+    const { onDeleteClick } = this.props;
     this.handleClose();
-    this.props.onDeleteClick();
-  }
+    onDeleteClick();
+  };
 
   render() {
     const { anchorEl } = this.state;
@@ -53,7 +71,7 @@ class ChatMenu extends React.Component {
           disabled={disabled}
           color="inherit"
         >
-          <MoreIcon/>
+          <MoreIcon />
         </IconButton>
         <Menu
           id="menu-chat"

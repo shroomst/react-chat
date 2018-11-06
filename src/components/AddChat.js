@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -6,66 +7,76 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   form: {
-    width      : '100%', // Fix IE11 issue.
-    marginTop  : theme.spacing.unit,
-    height     : 120,
+    width: '100%', // Fix IE11 issue.
+    marginTop: theme.spacing.unit,
+    height: 120,
   },
 });
 
 class AddChat extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    disabled: PropTypes.bool.isRequired,
+    closeModals: PropTypes.func.isRequired,
+  };
+
   state = {
     chatName: {
       value: '',
       isValid: true,
-    }
-  }
-
-  validate() {
-    const { chatName } = this.state;
-    const isValid = (/^[A-Za-z0-9а-яА-Я -.?!]+$/.test(chatName.value)) && (chatName.value.length > 0) ? true : false;
-
-    this.setState ((prevState) => ({
-      chatName: {
-        ...prevState,
-        isValid,
-        value: '',
-      }
-    }));
-    
-    return isValid;
-  }
+    },
+  };
 
   handleInputChange = (event) => {
     event.persist();
     const { name, value } = event.target;
-    this.setState ((prevState) => ({
-      [name] : {
+    this.setState(prevState => ({
+      [name]: {
         ...prevState[name],
-        value
-      }
-    }))
-  }
+        value,
+      },
+    }));
+  };
 
   handleAddChatSubmit = (event) => {
     event.preventDefault();
     const { chatName } = this.state;
+    const { onSubmit, closeModals } = this.props;
     if (!this.validate()) {
       return;
     }
-    this.props.onSubmit(chatName.value);
-    this.props.closeModals();
+    onSubmit(chatName.value);
+    closeModals();
+  };
+
+  validate() {
+    const { chatName } = this.state;
+    const isValid = !!(
+      /^[A-Za-z0-9а-яА-Я -.?!]+$/.test(chatName.value) && chatName.value.length > 0
+    );
+
+    this.setState(prevState => ({
+      chatName: {
+        ...prevState,
+        isValid,
+        value: '',
+      },
+    }));
+
+    return isValid;
   }
 
-  render () {
+  render() {
     const { classes, disabled } = this.props;
     const { chatName } = this.state;
-    const helperText = (chatName.isValid) ? '' : 'Please use letters, digits, space and . - ? !'
+    const helperText = chatName.isValid ? '' : 'Please use letters, digits, space and . - ? !';
 
     return (
       <React.Fragment>
         <h3>Create new chat</h3>
         <form className={classes.form} onSubmit={this.handleAddChatSubmit}>
-          <TextField 
+          <TextField
             required
             fullWidth
             label="New chat name"
@@ -79,13 +90,7 @@ class AddChat extends React.Component {
             onChange={this.handleInputChange}
             helperText={helperText}
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="text"
-            color="primary"
-            disabled={disabled}
-          >
+          <Button type="submit" fullWidth variant="text" color="primary" disabled={disabled}>
             Create
           </Button>
         </form>

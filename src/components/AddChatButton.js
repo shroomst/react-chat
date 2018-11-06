@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -7,20 +8,27 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   addChatButton: {
     margin: theme.spacing.unit,
-    position: "fixed",
+    position: 'fixed',
     bottom: 65,
-    left:230
+    left: 230,
   },
 });
 
 class AddChatButton extends React.Component {
+  static propTypes = {
+    addHandler: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  };
+
   constructor(props) {
-    super(props)
-    this.clickHandler = this.clickHandler.bind(this)
+    super(props);
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
-  clickHandler () {
-    this.props.addHandler('chatModal');
+  clickHandler() {
+    const { addHandler } = this.props;
+    addHandler('chatModal');
   }
 
   render() {
@@ -28,10 +36,10 @@ class AddChatButton extends React.Component {
 
     return (
       <div>
-        <Button 
-          variant="fab" 
-          color="primary" 
-          aria-label="Add" 
+        <Button
+          variant="fab"
+          color="primary"
+          aria-label="Add"
           className={classes.addChatButton}
           onClick={this.clickHandler}
           disabled={disabled}

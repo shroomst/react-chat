@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -15,7 +16,7 @@ const styles = theme => ({
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing.unit,
-    height:300,
+    height: 300,
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
@@ -23,6 +24,16 @@ const styles = theme => ({
 });
 
 class RegisterForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    errorMessage: PropTypes.string,
+  };
+
+  static defaultProps = {
+    errorMessage: '',
+  };
+
   state = {
     username: {
       value: '',
@@ -39,65 +50,67 @@ class RegisterForm extends React.Component {
     errorPasswordMessage: {
       value: '',
     },
-  }
+  };
 
   handleInputChange = (event) => {
     event.persist();
     const { name, value } = event.target;
-    this.setState ((prevState) => ({
-      [name] : {
+    this.setState(prevState => ({
+      [name]: {
         ...prevState[name],
-        value
-      }
-    }))
-  }
+        value,
+      },
+    }));
+  };
 
   validate = () => {
     const { password, confirmPassword } = this.state;
     const isValid = password.value === confirmPassword.value;
-    const errorPasswordMessage = (isValid) ? '' : 'Passwords do not match';
+    const errorPasswordMessage = isValid ? '' : 'Passwords do not match';
 
-    this.setState ((prevState) => ({
+    this.setState(prevState => ({
       password: {
         ...prevState,
         isValid,
-        value: ''
+        value: '',
       },
       confirmPassword: {
         ...prevState,
         isValid,
-        value: ''
+        value: '',
       },
       errorPasswordMessage: {
         ...prevState,
-        value: errorPasswordMessage
-      }
+        value: errorPasswordMessage,
+      },
     }));
-    
+
     return isValid;
-  }
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { username, password } = this.state;
+    const { onSubmit } = this.props;
     if (!this.validate()) {
       return;
     }
-    this.props.onSubmit(username.value, password.value);
-  }
+    onSubmit(username.value, password.value);
+  };
 
-  render () {
+  render() {
     const { classes, errorMessage } = this.props;
-    const { username, password, confirmPassword, errorPasswordMessage } = this.state;
-    console.log('EM:'+errorMessage);
+    const {
+      username, password, confirmPassword, errorPasswordMessage,
+    } = this.state;
     return (
       <React.Fragment>
         <Avatar className={classes.avatar}>
-          <RegisterIcon/>
+          <RegisterIcon />
         </Avatar>
         <Typography variant="h5">Register</Typography>
         <form className={classes.form} onSubmit={this.handleSubmit}>
-          <TextField 
+          <TextField
             required
             fullWidth
             label="Username"
@@ -111,7 +124,7 @@ class RegisterForm extends React.Component {
             error={!!errorMessage}
             helperText={errorMessage}
           />
-          <TextField 
+          <TextField
             required
             fullWidth
             label="Password"
@@ -125,7 +138,7 @@ class RegisterForm extends React.Component {
             error={!password.isValid}
             helperText={errorPasswordMessage.value}
           />
-          <TextField 
+          <TextField
             required
             fullWidth
             label="Confirm Password"

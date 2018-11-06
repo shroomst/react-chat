@@ -4,15 +4,17 @@ import chats from './chats';
 import messages from './messages';
 import services from './services';
 
-export default combineReducers ({
+export default combineReducers({
   auth,
   chats,
   messages,
-  services
+  services,
 });
 
-export const getActiveUser = (state) => state.auth.user;
-export const getUserId = (user) => user._id;
+export const getActiveUser = state => state.auth.user;
+/* eslint-disable no-underscore-dangle */
+export const getUserId = user => user._id;
+/* eslint-enable no-underscore-dangle */
 
 export const isCreator = (state, chat) => {
   try {
@@ -20,18 +22,14 @@ export const isCreator = (state, chat) => {
   } catch (e) {
     return false;
   }
-}
+};
 
 export const isMember = (state, chat) => {
   try {
-    return chat.members.some(
-      member => getUserId(member) === getUserId(getActiveUser(state))
-    );
+    return chat.members.some(member => getUserId(member) === getUserId(getActiveUser(state)));
   } catch (e) {
     return false;
   }
-}
+};
 
-export const isChatMember = (state, chat) => {
-  return isCreator(state, chat) || isMember(state, chat);
-}
+export const isChatMember = (state, chat) => isCreator(state, chat) || isMember(state, chat);

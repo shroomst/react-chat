@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -15,14 +16,24 @@ const styles = theme => ({
   form: {
     width: '100%', // Fix IE11 issue.
     marginTop: theme.spacing.unit,
-    height:300,
+    height: 300,
   },
   loginSubmit: {
     marginTop: theme.spacing.unit * 6,
-  }
+  },
 });
 
 class SignInForm extends React.Component {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    errorMessage: PropTypes.string,
+  };
+
+  static defaultProps = {
+    errorMessage: '',
+  };
+
   state = {
     username: {
       value: '',
@@ -31,38 +42,39 @@ class SignInForm extends React.Component {
     password: {
       value: '',
       isValid: true,
-    }
-  }
+    },
+  };
 
   handleInputChange = (event) => {
     event.persist();
     const { name, value } = event.target;
-    this.setState ((prevState) => ({
-      [name] : {
+    this.setState(prevState => ({
+      [name]: {
         ...prevState[name],
-        value
-      }
-    }))
-  }
+        value,
+      },
+    }));
+  };
 
   handleSubmit = (event) => {
     event.preventDefault();
     const { username, password } = this.state;
-    this.props.onSubmit(username.value, password.value);
-  }
+    const { onSubmit } = this.props;
+    onSubmit(username.value, password.value);
+  };
 
-  render () {
+  render() {
     const { classes, errorMessage } = this.props;
     const { username, password } = this.state;
 
     return (
       <React.Fragment>
         <Avatar className={classes.avatar}>
-          <SignInIcon/>
+          <SignInIcon />
         </Avatar>
         <Typography variant="h5">Sign in</Typography>
         <form className={classes.form} onSubmit={this.handleSubmit}>
-          <TextField 
+          <TextField
             required
             fullWidth
             label="Username"
@@ -76,7 +88,7 @@ class SignInForm extends React.Component {
             error={!!errorMessage}
             helperText={errorMessage}
           />
-          <TextField 
+          <TextField
             required
             fullWidth
             label="Password"
@@ -99,7 +111,7 @@ class SignInForm extends React.Component {
             Sign in
           </Button>
         </form>
-      </React.Fragment>    
+      </React.Fragment>
     );
   }
 }

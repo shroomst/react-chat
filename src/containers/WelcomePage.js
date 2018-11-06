@@ -10,13 +10,16 @@ const mapStateToProps = state => ({
   errorRegisterMessage: state.services.errors.signup,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  signup,
-  login,
-  receiveAuth
-}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators(
+  {
+    signup,
+    login,
+    receiveAuth,
+  },
+  dispatch,
+);
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-) (WelcomePage);
+  mapDispatchToProps,
+)(WelcomePage);

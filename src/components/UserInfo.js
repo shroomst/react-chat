@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -6,34 +7,79 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   form: {
-    width      : '100%', // Fix IE11 issue.
-    marginTop  : theme.spacing.unit,
-    height     : 300,
+    width: '100%', // Fix IE11 issue.
+    marginTop: theme.spacing.unit,
+    height: 300,
   },
 });
 
 class UserInfo extends React.Component {
+  static propTypes = {
+    activeUser: PropTypes.shape({
+      firstName: PropTypes.string,
+      lastName: PropTypes.string,
+      username: PropTypes.string,
+    }).isRequired,
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    closeModals: PropTypes.func.isRequired,
+    disabled: PropTypes.bool.isRequired,
+  };
+
   state = {
     username: {
-      value: this.props.username,
+      value: '',
       isValid: true,
     },
     firstName: {
-      value: (!!this.props.firstName) ? this.props.firstName : '',
+      value: '',
       isValid: true,
     },
     lastName: {
-      value: (!!this.props.lastName) ? this.props.lastName : '',
+      value: '',
       isValid: true,
     },
+  };
+
+  componentWillReceiveProps(nextProps) {
+    const { username, firstName, lastName } = this.state;
+    // TODO: почему то запускается только после закрытия модалки.
+    // как результат не получаю данные для предзаполнения
+    this.setState({
+      username: { ...username, value: nextProps.activeUser.username },
+      firstName: { ...firstName, value: nextProps.activeUser.firstName },
+      lastName: { ...lastName, value: nextProps.activeUser.lastName },
+    });
   }
+
+  handleInputChange = (event) => {
+    event.persist();
+    const { name, value } = event.target;
+    this.setState(prevState => ({
+      [name]: {
+        ...prevState[name],
+        value,
+      },
+    }));
+  };
+
+  handleUserInfoSubmit = (event) => {
+    event.preventDefault();
+    const { username, firstName, lastName } = this.state;
+    const { onSubmit, closeModals } = this.props;
+    if (!this.validate(event)) {
+      return;
+    }
+    onSubmit(username.value, firstName.value, lastName.value);
+    closeModals();
+  };
 
   validate(event) {
     event.persist();
     const { username, firstName, lastName } = this.state;
-    const isValidUsername = (/^[A-Za-z0-9-.]+$/.test(username.value)) ? true : false;
-    const isValidFirstName = (/(^([A-Za-z0-9а-яА-Я- ]+$)|^$)/.test(firstName.value)) ? true : false;
-    const isValidLastName = (/(^([A-Za-z0-9а-яА-Я- ]+$)|^$)/.test(lastName.value)) ? true : false;
+    const isValidUsername = !!/^[A-Za-z0-9-.]+$/.test(username.value);
+    const isValidFirstName = !!/(^([A-Za-z0-9а-яА-Я- ]+$)|^$)/.test(firstName.value);
+    const isValidLastName = !!/(^([A-Za-z0-9а-яА-Я- ]+$)|^$)/.test(lastName.value);
 
     this.setState({
       username: { ...username, isValid: isValidUsername },
@@ -43,39 +89,19 @@ class UserInfo extends React.Component {
     return isValidLastName && isValidUsername && isValidFirstName;
   }
 
-  handleInputChange = (event) => {
-    event.persist();
-    const { name, value } = event.target;
-    this.setState ((prevState) => ({
-      [name] : {
-        ...prevState[name],
-        value
-      }
-    }))
-  }
-
-  handleUserInfoSubmit = (event) => {
-    event.preventDefault();
-    const { username, firstName, lastName } = this.state;
-    if (!this.validate(event)) {
-      return;
-    }
-    this.props.onSubmit(username.value, firstName.value, lastName.value);
-    this.props.closeModals();
-  }
-
-  render () {
+  render() {
     const { classes, closeModals, disabled } = this.props;
     const { username, firstName, lastName } = this.state;
-    const helperTextUsername = (username.isValid) ? '' : 'Please use latin letters, digits and . -'
-    const helperTextFirstName = (firstName.isValid) ? '' : 'Please use letters, digits, space and . -'
-    const helperTextLastName = (lastName.isValid) ? '' : 'Please use letters, digits, space and . -'
-
+    const helperTextUsername = username.isValid ? '' : 'Please use latin letters, digits and . -';
+    const helperTextFirstName = firstName.isValid
+      ? ''
+      : 'Please use letters, digits, space and . -';
+    const helperTextLastName = lastName.isValid ? '' : 'Please use letters, digits, space and . -';
     return (
       <React.Fragment>
         <h3>Edit user info</h3>
         <form className={classes.form} onSubmit={this.handleUserInfoSubmit}>
-          <TextField 
+          <TextField
             required
             fullWidth
             label="Username"
@@ -89,7 +115,7 @@ class UserInfo extends React.Component {
             onChange={this.handleInputChange}
             helperText={helperTextUsername}
           />
-          <TextField 
+          <TextField
             fullWidth
             label="First Name"
             name="firstName"
@@ -102,7 +128,7 @@ class UserInfo extends React.Component {
             onChange={this.handleInputChange}
             helperText={helperTextFirstName}
           />
-          <TextField 
+          <TextField
             fullWidth
             label="Last Name"
             name="lastName"
@@ -115,20 +141,10 @@ class UserInfo extends React.Component {
             onChange={this.handleInputChange}
             helperText={helperTextLastName}
           />
-          <Button
-            type="submit"
-            variant="text"
-            color="primary"
-            disabled={disabled}
-          >
+          <Button type="submit" variant="text" color="primary" disabled={disabled}>
             Save
           </Button>
-          <Button
-            variant="text"
-            color="secondary"
-            style={{ marginLeft: 30 }}
-            onClick={closeModals}
-          >
+          <Button variant="text" color="secondary" style={{ marginLeft: 30 }} onClick={closeModals}>
             Close
           </Button>
         </form>

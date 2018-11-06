@@ -1,7 +1,7 @@
-import callApi from '../utils/callapi'
+import callApi from '../utils/callapi';
 import * as types from '../constants/auth';
 
-export function signup(username, password) { 
+export function signup(username, password) {
   return (dispatch, getState) => {
     const { isFetching } = getState().services;
 
@@ -9,27 +9,26 @@ export function signup(username, password) {
       return Promise.resolve();
     }
 
-    dispatch ({
+    dispatch({
       type: types.SIGNUP_REQUEST,
-    });  
+    });
 
     return callApi('/signup', undefined, { method: 'POST' }, { username, password })
-      .then (json => {
+      .then((json) => {
         if (!json.token) {
           throw new Error('No token provided!');
         }
         localStorage.setItem('token', json.token);
         dispatch({
           type: types.SIGNUP_SUCCESS,
-          payload: json
-        })
+          payload: json,
+        });
       })
       .catch(reason => dispatch({
         type: types.SIGNUP_FAILURE,
-        payload: reason
-      })
-    );
-  }
+        payload: reason,
+      }));
+  };
 }
 
 export function login(username, password) {
@@ -40,27 +39,26 @@ export function login(username, password) {
       return Promise.resolve();
     }
 
-    dispatch ({
+    dispatch({
       type: types.LOGIN_REQUEST,
     });
 
     return callApi('/login', undefined, { method: 'POST' }, { username, password })
-      .then (json => {
+      .then((json) => {
         if (!json.token) {
           throw new Error('No token provided!');
         }
         localStorage.setItem('token', json.token);
         dispatch({
           type: types.LOGIN_SUCCESS,
-          payload: json
-        })
+          payload: json,
+        });
       })
       .catch(reason => dispatch({
         type: types.LOGIN_FAILURE,
-        payload: reason
-      })
-    );
-  }
+        payload: reason,
+      }));
+  };
 }
 
 export function logout() {
@@ -73,23 +71,23 @@ export function logout() {
       return Promise.resolve();
     }
 
-    dispatch ({
+    dispatch({
       type: types.LOGOUT_REQUEST,
     });
 
     return callApi('/logout', token)
-      .then(json => {
+      .then((json) => {
         localStorage.removeItem('token');
         dispatch({
           type: types.LOGOUT_SUCCESS,
-          payload: json
+          payload: json,
         });
       })
       .catch(reason => dispatch({
         type: types.LOGOUT_FAILURE,
-        payload: reason
+        payload: reason,
       }));
-  }
+  };
 }
 
 export function receiveAuth() {
@@ -108,12 +106,12 @@ export function receiveAuth() {
 
     return callApi('/users/me', token)
       .then(json => dispatch({
-          type: types.RECEIVE_AUTH_SUCCESS,
-          payload: json
+        type: types.RECEIVE_AUTH_SUCCESS,
+        payload: json,
       }))
       .catch(reason => dispatch({
         type: types.RECEIVE_AUTH_FAILURE,
-        payload: reason
+        payload: reason,
       }));
-  }
+  };
 }
